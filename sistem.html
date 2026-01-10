@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan Sistem - Tapis Bersih</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-color: #1B4332;
+            --secondary-color: #2D6A4F;
+            --accent-color: #FFB100;
+            --bg-light: #F4F7F6;
+            --text-dark: #212529;
+            --danger: #E74C3C;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body { background-color: #CCC; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+
+        .mobile-frame {
+            width: 100%; max-width: 414px; height: 100vh;
+            background: var(--bg-light); position: relative; 
+            display: flex; flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: white; padding: 25px 20px; border-bottom: 1px solid #EEE;
+            text-align: center;
+        }
+
+        .content-area {
+            flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 90px;
+        }
+
+        .settings-group { margin-bottom: 25px; }
+        .settings-group h3 { 
+            font-size: 12px; color: #888; text-transform: uppercase; 
+            letter-spacing: 1px; margin-bottom: 10px; padding-left: 5px;
+        }
+
+        .settings-card {
+            background: white; border-radius: 18px; overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .setting-item {
+            display: flex; align-items: center; padding: 15px;
+            border-bottom: 1px solid #F8F9FA; gap: 15px;
+        }
+        .setting-item:last-child { border-bottom: none; }
+
+        .icon-box {
+            width: 36px; height: 36px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .item-info { flex: 1; }
+        .item-info h4 { font-size: 14px; color: var(--text-dark); }
+        .item-info p { font-size: 11px; color: #AAA; }
+
+        /* Custom Switch */
+        .switch {
+            position: relative; display: inline-block; width: 40px; height: 22px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #DDD; transition: .4s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 16px; width: 16px;
+            left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--secondary-color); }
+        input:checked + .slider:before { transform: translateX(18px); }
+
+        .btn-danger-outline {
+            width: 100%; padding: 12px; border: 1px solid var(--danger);
+            background: transparent; color: var(--danger); border-radius: 12px;
+            font-weight: 600; font-size: 13px; cursor: pointer; margin-top: 10px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: absolute; bottom: 0; width: 100%;
+            background: white; padding: 12px 20px;
+            display: flex; justify-content: space-between;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.05); border-top: 1px solid #EEE;
+        }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #AAA; text-decoration: none; font-size: 10px; font-weight: 600; }
+        .nav-item.active { color: var(--secondary-color); }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <header class="header">
+            <h2 style="font-size: 18px; color: var(--primary-color);">Konfigurasi Sistem</h2>
+        </header>
+
+        <div class="content-area">
+            
+            <div class="settings-group">
+                <h3>Operasional Lapangan</h3>
+                <div class="settings-card">
+                    <div class="setting-item">
+                        <div class="icon-box" style="background: #E8F5E9; color: var(--secondary-color);">
+                            <i data-lucide="map-pin" size="18"></i>
+                        </div>
+                        <div class="item-info">
+                            <h4>Radius Deteksi</h4>
+                            <p>Batas lapor otomatis (100 meter)</p>
+                        </div>
+                        <i data-lucide="chevron-right" size="16" color="#CCC"></i>
+                    </div>
+                    <div class="setting-item">
+                        <div class="icon-box" style="background: #FFF4E5; color: var(--accent-color);">
+                            <i data-lucide="bell" size="18"></i>
+                        </div>
+                        <div class="item-info">
+                            <h4>Notifikasi Petugas</h4>
+                            <p>Kirim alert untuk laporan baru</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h3>Data & Backup</h3>
+                <div class="settings-card">
+                    <div class="setting-item">
+                        <div class="icon-box" style="background: #E3F2FD; color: #1976D2;">
+                            <i data-lucide="database" size="18"></i>
+                        </div>
+                        <div class="item-info">
+                            <h4>Backup Database</h4>
+                            <p>Sinkronisasi terakhir: 1 jam lalu</p>
+                        </div>
+                        <i data-lucide="refresh-cw" size="16" color="#1976D2"></i>
+                    </div>
+                    <div class="setting-item">
+                        <div class="icon-box" style="background: #F3E5F5; color: #7B1FA2;">
+                            <i data-lucide="file-text" size="18"></i>
+                        </div>
+                        <div class="item-info">
+                            <h4>Laporan PDF</h4>
+                            <p>Generate rekap bulanan otomatis</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h3>Keamanan & Maintenance</h3>
+                <div class="settings-card">
+                    <div class="setting-item">
+                        <div class="icon-box" style="background: #FFEBEE; color: var(--danger);">
+                            <i data-lucide="shield-check" size="18"></i>
+                        </div>
+                        <div class="item-info">
+                            <h4>Log Aktivitas Admin</h4>
+                            <p>Pantau riwayat perubahan data</p>
+                        </div>
+                        <i data-lucide="chevron-right" size="16" color="#CCC"></i>
+                    </div>
+                </div>
+                <button class="btn-danger-outline">
+                    <i data-lucide="trash-2" size="14" style="vertical-align: middle; margin-right: 5px;"></i>
+                    Bersihkan Cache Sistem
+                </button>
+            </div>
+
+            <p style="text-align: center; font-size: 10px; color: #BBB; margin-top: 10px;">
+                Tapis Bersih v1.0.2 Build 2026.01
+            </p>
+
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="dashboardadmin.html" class="nav-item">
+                <i data-lucide="layout-dashboard" size="22"></i>
+                <span>Ringkasan</span>
+            </a>
+            <a href="laporan.html" class="nav-item">
+                <i data-lucide="clipboard-list" size="22"></i>
+                <span>Laporan</span>
+            </a>
+            <a href="petugas.html" class="nav-item">
+                <i data-lucide="users" size="22"></i>
+                <span>Petugas</span>
+            </a>
+            <a href="sistem.html" class="nav-item active">
+                <i data-lucide="settings" size="22"></i>
+                <span>Sistem</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
