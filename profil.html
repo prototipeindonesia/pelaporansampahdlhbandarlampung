@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - Tapis Bersih</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-color: #2D6A4F;
+            --secondary-color: #52B788;
+            --danger-color: #E74C3C;
+            --bg-light: #F8F9FA;
+            --text-dark: #1B4332;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            display: flex;
+            justify-content: center;
+        }
+
+        .mobile-frame {
+            width: 100%;
+            max-width: 414px;
+            height: 100vh;
+            background: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background: var(--primary-color);
+            padding: 40px 20px 80px;
+            text-align: center;
+            color: white;
+            border-radius: 0 0 40px 40px;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.3);
+            object-fit: cover;
+        }
+
+        .edit-avatar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--secondary-color);
+            padding: 6px;
+            border-radius: 50%;
+            color: white;
+            border: 3px solid var(--primary-color);
+        }
+
+        .profile-header h2 { font-size: 20px; font-weight: 700; }
+        .profile-header p { font-size: 13px; opacity: 0.8; }
+
+        /* Profile Menu */
+        .profile-content {
+            flex: 1;
+            padding: 0 20px;
+            margin-top: -40px;
+            overflow-y: auto;
+            padding-bottom: 100px;
+        }
+
+        .menu-group {
+            background: white;
+            border-radius: 20px;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--text-dark);
+            border-bottom: 1px solid #F5F5F5;
+            transition: 0.2s;
+        }
+
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item:active { background: #F9F9F9; }
+
+        .menu-icon {
+            background: #E8F5E9;
+            padding: 8px;
+            border-radius: 10px;
+            color: var(--primary-color);
+        }
+
+        .menu-text { flex: 1; font-size: 14px; font-weight: 600; }
+        .menu-arrow { color: #CCC; }
+
+        .logout-btn {
+            color: var(--danger-color);
+        }
+        .logout-btn .menu-icon {
+            background: #FEE2E2;
+            color: var(--danger-color);
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            border-radius: 25px 25px 0 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #AAA;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .nav-item.active { color: var(--primary-color); }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img src="https://ui-avatars.com/api/?name=Olivia&background=52B788&color=fff" class="avatar-img" alt="User">
+                <div class="edit-avatar">
+                    <i data-lucide="camera" size="14"></i>
+                </div>
+            </div>
+            <h2>Olivia</h2>
+            <p>1871020405XXXXXX (NIK)</p>
+        </div>
+
+        <div class="profile-content">
+            
+            <div class="menu-group">
+                <a href="#" class="menu-item">
+                    <div class="menu-icon"><i data-lucide="user" size="18"></i></div>
+                    <span class="menu-text">Edit Profil</span>
+                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                </a>
+                <a href="#" class="menu-item">
+                    <div class="menu-icon"><i data-lucide="map-pin" size="18"></i></div>
+                    <span class="menu-text">Alamat Tersimpan</span>
+                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                </a>
+            </div>
+
+            <div class="menu-group">
+                <a href="#" class="menu-item">
+                    <div class="menu-icon"><i data-lucide="bell" size="18"></i></div>
+                    <span class="menu-text">Notifikasi</span>
+                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                </a>
+                <a href="#" class="menu-item">
+                    <div class="menu-icon"><i data-lucide="shield-check" size="18"></i></div>
+                    <span class="menu-text">Keamanan Akun</span>
+                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                </a>
+                <a href="#" class="menu-item">
+                    <div class="menu-icon"><i data-lucide="help-circle" size="18"></i></div>
+                    <span class="menu-text">Pusat Bantuan</span>
+                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                </a>
+            </div>
+
+            <div class="menu-group">
+                <a href="index.html" class="menu-item logout-btn">
+                    <div class="menu-icon"><i data-lucide="log-out" size="18"></i></div>
+                    <span class="menu-text">Keluar Akun</span>
+                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                </a>
+            </div>
+
+            <p style="text-align: center; font-size: 11px; color: #BBB; margin-bottom: 20px;">Versi Aplikasi 1.0.2 (Build 2026)</p>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="dashboardmasyarakat.html" class="nav-item">
+                <i data-lucide="home"></i>
+                <span>Beranda</span>
+            </a>
+            <a href="riwayat.html" class="nav-item">
+                <i data-lucide="clipboard-list"></i>
+                <span>Riwayat</span>
+            </a>
+            <a href="peta.html" class="nav-item">
+                <i data-lucide="map-pin"></i>
+                <span>Peta</span>
+            </a>
+            <a href="profile.html" class="nav-item active">
+                <i data-lucide="user"></i>
+                <span>Profil</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
