@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Tapis Bersih</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-color: #2D6A4F;
+            --secondary-color: #52B788;
+            --bg-light: #F8F9FA;
+            --text-dark: #1B4332;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .mobile-frame {
+            width: 100%;
+            max-width: 414px;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .header-login {
+            padding: 40px 25px 20px;
+        }
+
+        .btn-back {
+            background: #E8F5E9;
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Role Selector */
+        .role-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 20px 25px;
+        }
+
+        .role-card {
+            border: 2px solid #EEE;
+            border-radius: 16px;
+            padding: 15px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .role-card i {
+            margin-bottom: 8px;
+            color: #AAA;
+        }
+
+        .role-card span {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #888;
+        }
+
+        .role-card.active {
+            border-color: var(--secondary-color);
+            background: #F0FFF4;
+        }
+
+        .role-card.active i, .role-card.active span {
+            color: var(--primary-color);
+        }
+
+        .form-section {
+            padding: 10px 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 1.5px solid #EEE;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: var(--secondary-color);
+        }
+
+        .forgot-pass {
+            text-align: right;
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
+
+        .forgot-pass a {
+            font-size: 12px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2);
+        }
+
+        .register-text {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .register-text a {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <div class="header-login">
+            <button class="btn-back" onclick="window.location.href='index.html'">
+                <i data-lucide="chevron-left"></i>
+            </button>
+            <h2>Selamat Datang</h2>
+            <p class="subtitle">Silakan masuk untuk melanjutkan akses layanan</p>
+        </div>
+
+        <div class="role-selector">
+            <div class="role-card active" data-role="masyarakat" onclick="selectRole(this, 'masyarakat')">
+                <i data-lucide="users" size="24"></i>
+                <span>Masyarakat</span>
+            </div>
+            <div class="role-card" data-role="petugas" onclick="selectRole(this, 'petugas')">
+                <i data-lucide="truck" size="24"></i>
+                <span>Petugas</span>
+            </div>
+            <div class="role-card" data-role="admin" onclick="selectRole(this, 'admin')">
+                <i data-lucide="user-cog" size="24"></i>
+                <span>Admin</span>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>Email atau Nomor HP</label>
+                    <input type="text" class="input-field" placeholder="Masukkan identitas Anda..." required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" class="input-field" placeholder="Masukkan password..." required>
+                </div>
+                
+                <div class="forgot-pass">
+                    <a href="#">Lupa Password?</a>
+                </div>
+
+                <button type="submit" class="btn-login">Masuk Sekarang</button>
+            </form>
+
+            <p class="register-text">
+                Belum punya akun? <a href="registrasi.html">Daftar Disini</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Variabel untuk menyimpan role yang dipilih (default: masyarakat)
+        let selectedRole = 'masyarakat';
+
+        function selectRole(element, roleName) {
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            element.classList.add('active');
+            selectedRole = roleName; // Update variabel role
+        }
+
+        document.getElementById('loginForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            // Logika pengalihan berdasarkan selectedRole
+            if (selectedRole === 'masyarakat') {
+                window.location.href = 'dashboardmasyarakat.html';
+            } else if (selectedRole === 'petugas') {
+                window.location.href = 'dashboardpetugas.html';
+            } else if (selectedRole === 'admin') {
+                window.location.href = 'dashboardadmin.html';
+            }
+        };
+    </script>
+</body>
+</html>
