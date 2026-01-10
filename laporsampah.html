@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lapor Sampah - Tapis Bersih</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-color: #2D6A4F;
+            --secondary-color: #52B788;
+            --bg-light: #F8F9FA;
+            --text-dark: #1B4332;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            display: flex;
+            justify-content: center;
+        }
+
+        .mobile-frame {
+            width: 100%;
+            max-width: 414px;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* Header */
+        .header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #EEE;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+
+        .btn-back {
+            background: #F0F0F0;
+            border: none;
+            padding: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .header h2 { font-size: 18px; color: var(--text-dark); }
+
+        /* Form Content */
+        .form-content {
+            padding: 20px;
+        }
+
+        .upload-section {
+            width: 100%;
+            height: 200px;
+            background: #F9F9F9;
+            border: 2px dashed #DDD;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+            cursor: pointer;
+            color: #888;
+            transition: 0.3s;
+        }
+
+        .upload-section:active {
+            background: #F0FFF4;
+            border-color: var(--secondary-color);
+        }
+
+        .upload-section p { font-size: 13px; margin-top: 10px; }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .input-field, .select-field, .textarea-field {
+            width: 100%;
+            padding: 14px;
+            border: 1.5px solid #EEE;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            background: #FBFBFB;
+        }
+
+        .textarea-field {
+            height: 100px;
+            resize: none;
+        }
+
+        .location-box {
+            background: #E8F5E9;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .location-text { font-size: 12px; color: var(--primary-color); line-height: 1.4; }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(45, 106, 79, 0.2);
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+
+        .btn-submit:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <div class="header">
+            <button class="btn-back" onclick="window.history.back()">
+                <i data-lucide="chevron-left" size="24"></i>
+            </button>
+            <h2>Lapor Sampah Liar</h2>
+        </div>
+
+        <div class="form-content">
+            <div class="form-group">
+                <label>Foto Tumpukan Sampah</label>
+                <div class="upload-section" onclick="alert('Membuka Kamera...')">
+                    <i data-lucide="camera" size="40"></i>
+                    <p>Ambil Foto atau Pilih Galeri</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Lokasi Saat Ini</label>
+                <div class="location-box">
+                    <i data-lucide="map-pin" size="20" style="color: var(--primary-color);"></i>
+                    <div class="location-text">
+                        <strong>Terdeteksi Otomatis:</strong><br>
+                        Jl. Sultan Agung No. 12, Kedaton, Bandar Lampung (105.26, -5.41)
+                    </div>
+                </div>
+                <input type="text" class="input-field" placeholder="Tambahkan patokan (misal: depan ruko)">
+            </div>
+
+            <div class="form-group">
+                <label>Jenis Sampah</label>
+                <select class="select-field">
+                    <option value="">Pilih Jenis Sampah</option>
+                    <option value="organik">Organik (Sisa Makanan/Daun)</option>
+                    <option value="anorganik">Anorganik (Plastik/Logam)</option>
+                    <option value="b3">B3 (Baterai/Limbah Berbahaya)</option>
+                    <option value="besar">Sampah Besar (Kasur/Lemari)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Keterangan Tambahan</label>
+                <textarea class="textarea-field" placeholder="Ceritakan kondisi sampah di lokasi..."></textarea>
+            </div>
+
+            <button class="btn-submit" onclick="submitLaporan()">
+                Kirim Laporan
+            </button>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function submitLaporan() {
+            alert('Laporan Anda sedang dikirim ke Dinas Lingkungan Hidup. Terima kasih atas partisipasi Anda!');
+            window.location.href = 'riwayat.html';
+        }
+    </script>
+</body>
+</html>
