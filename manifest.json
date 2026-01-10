@@ -1,0 +1,15 @@
+{
+  "name": "Tapis Bersih",
+  "short_name": "TapisBersih",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#1B4332",
+  "theme_color": "#1B4332",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
