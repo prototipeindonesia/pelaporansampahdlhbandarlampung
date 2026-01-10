@@ -168,6 +168,18 @@
             margin-bottom: 15px;
         }
     </style>
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#1B4332">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="logo.png">
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log("Service Worker Registered"));
+  }
+</script>
 </head>
 <body>
 
@@ -215,3 +227,4 @@
 </body>
 
 </html>
+
