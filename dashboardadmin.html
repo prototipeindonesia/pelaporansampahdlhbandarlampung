@@ -25,7 +25,7 @@
             display: flex; 
             justify-content: center; 
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* Mencegah body utama ikut scroll */
         }
 
         .mobile-frame {
@@ -36,15 +36,17 @@
             position: relative; 
             display: flex; 
             flex-direction: column;
+            overflow: hidden; /* Menjaga elemen anak tetap di dalam frame */
         }
 
-        /* Header Admin Updated */
+        /* Header Admin */
         .admin-header {
             background: var(--primary-color);
             padding: 20px;
             color: white;
             flex-shrink: 0;
             border-radius: 0 0 20px 20px;
+            z-index: 10;
         }
 
         .instansi-branding {
@@ -82,11 +84,12 @@
             align-items: center;
         }
 
+        /* Bagian Konten yang Bisa Di-scroll */
         .content-body {
             flex: 1;
             padding: 20px;
-            overflow-y: auto;
-            padding-bottom: 90px;
+            overflow-y: auto; /* Mengaktifkan scroll hanya di area ini */
+            padding-bottom: 100px; /* Memberi ruang agar konten bawah tidak tertutup nav */
         }
 
         /* Stats Section */
@@ -144,10 +147,11 @@
         .bg-process { background: #E3F2FD; color: #1976D2; }
         .bg-success { background: #E8F5E9; color: #2D6A4F; }
 
-        /* Bottom Navigation */
+        /* Fixed Bottom Navigation */
         .bottom-nav {
-            position: absolute;
+            position: absolute; /* Menempel relatif terhadap mobile-frame */
             bottom: 0;
+            left: 0;
             width: 100%;
             background: white;
             padding: 12px 20px;
@@ -155,7 +159,7 @@
             justify-content: space-between;
             box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
             border-top: 1px solid #EEE;
-            z-index: 100;
+            z-index: 100; /* Memastikan nav selalu di depan konten */
         }
 
         .nav-item {
@@ -253,6 +257,17 @@
                     <div class="report-info">
                         <h4>Budi Santoso</h4>
                         <p>Jl. Sultan Agung • 1 jam lalu</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="badge bg-success">Selesai</span>
+                        <div style="margin-top: 5px;"><i data-lucide="chevron-right" size="14" color="#CCC"></i></div>
+                    </div>
+                </div>
+
+                <div class="report-item">
+                    <div class="report-info">
+                        <h4>Siti Aminah</h4>
+                        <p>Teluk Betung • 2 jam lalu</p>
                     </div>
                     <div style="text-align: right;">
                         <span class="badge bg-success">Selesai</span>
