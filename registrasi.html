@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Akun - Tapis Bersih</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-color: #2D6A4F;
+            --secondary-color: #52B788;
+            --bg-light: #F8F9FA;
+            --text-dark: #1B4332;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .mobile-frame {
+            width: 100%;
+            max-width: 414px;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .header-reg {
+            padding: 30px 25px 15px;
+            background: linear-gradient(to bottom, #E8F5E9 0%, white 100%);
+        }
+
+        .btn-back {
+            background: white;
+            border: 1px solid #EEE;
+            padding: 8px;
+            border-radius: 12px;
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .form-container {
+            padding: 10px 25px 40px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            border: 1.5px solid #EEE;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+            background-color: #FAFAFA;
+        }
+
+        .input-field:focus {
+            border-color: var(--secondary-color);
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.1);
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .terms input {
+            margin-top: 3px;
+            accent-color: var(--primary-color);
+        }
+
+        .terms label {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-register:hover {
+            background: #1B4332;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* Progress Bar Simple */
+        .step-indicator {
+            height: 4px;
+            width: 100%;
+            background: #EEE;
+            margin-bottom: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .step-progress {
+            height: 100%;
+            width: 40%; /* Menandakan progres pengisian */
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <div class="header-reg">
+            <button class="btn-back" onclick="window.location.href='login.html'">
+                <i data-lucide="arrow-left" size="20"></i>
+            </button>
+            <h2>Buat Akun</h2>
+            <p class="subtitle">Lengkapi data diri untuk mulai melapor.</p>
+            <div class="step-indicator">
+                <div class="step-progress"></div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form id="registerForm">
+                <div class="input-group">
+                    <label>NIK (Sesuai KTP)</label>
+                    <input type="number" class="input-field" placeholder="16 digit NIK..." required>
+                </div>
+
+                <div class="input-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="input-field" placeholder="Masukkan nama sesuai KTP..." required>
+                </div>
+
+                <div class="input-group">
+                    <label>Nomor WhatsApp</label>
+                    <input type="tel" class="input-field" placeholder="Contoh: 0812xxxx" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" class="input-field" placeholder="nama@email.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password Baru</label>
+                    <input type="password" class="input-field" placeholder="Minimal 8 karakter..." required>
+                </div>
+
+                <div class="terms">
+                    <input type="checkbox" id="agree" required>
+                    <label for="agree">Saya setuju dengan <b>Syarat & Ketentuan</b> serta mengizinkan sistem mengakses lokasi GPS saat melapor.</label>
+                </div>
+
+                <button type="submit" class="btn-register">Daftar Sekarang</button>
+            </form>
+
+            <p class="login-link">
+                Sudah punya akun? <a href="login.html">Masuk</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        document.getElementById('registerForm').onsubmit = function(e) {
+            e.preventDefault();
+            alert('Pendaftaran Berhasil! Silakan login.');
+            window.location.href = 'login.html';
+        };
+    </script>
+</body>
+</html>
