@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Tapis Bersih</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-color: #1B4332;
+            --secondary-color: #2D6A4F;
+            --accent-color: #FFB100;
+            --bg-light: #F4F7F6;
+            --text-dark: #212529;
+            --danger: #E74C3C;
+            --info: #3498DB;
+            --success: #2D6A4F;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body { 
+            background-color: #CCC; 
+            display: flex; 
+            justify-content: center; 
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .mobile-frame {
+            width: 100%; 
+            max-width: 414px; 
+            height: 100vh;
+            background: var(--bg-light); 
+            position: relative; 
+            display: flex; 
+            flex-direction: column;
+        }
+
+        /* Header Admin Updated */
+        .admin-header {
+            background: var(--primary-color);
+            padding: 20px;
+            color: white;
+            flex-shrink: 0;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .instansi-branding {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo-instansi {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .instansi-name h2 {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        .instansi-name p {
+            font-size: 9px;
+            opacity: 0.7;
+            margin: 0;
+        }
+
+        .admin-profile-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            padding-bottom: 90px;
+        }
+
+        /* Stats Section */
+        .stats-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 5px 0 15px;
+            scrollbar-width: none;
+        }
+        .stats-scroll::-webkit-scrollbar { display: none; }
+
+        .stat-card {
+            min-width: 140px;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border-bottom: 4px solid #DDD;
+        }
+        .stat-card p { font-size: 10px; color: #888; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; }
+        .stat-card h3 { font-size: 22px; color: var(--text-dark); }
+
+        /* Data List Area */
+        .data-list-section {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .report-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        .report-info h4 { font-size: 13px; color: var(--text-dark); }
+        .report-info p { font-size: 11px; color: #888; }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        .bg-warning { background: #FFF4E5; color: #D68910; }
+        .bg-process { background: #E3F2FD; color: #1976D2; }
+        .bg-success { background: #E8F5E9; color: #2D6A4F; }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+            border-top: 1px solid #EEE;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #AAA;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 600;
+            gap: 4px;
+        }
+
+        .nav-item.active { color: var(--secondary-color); }
+
+        .action-btn {
+            background: #F0F0F0;
+            border: none;
+            padding: 6px;
+            border-radius: 8px;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <header class="admin-header">
+            <div class="instansi-branding">
+                <img src="logo.png" class="logo-instansi" alt="Logo">
+                <div class="instansi-name">
+                    <h2>Dinas Lingkungan Hidup</h2>
+                    <p>Pemerintah Kota Bandar Lampung</p>
+                </div>
+            </div>
+
+            <div class="admin-profile-section">
+                <div>
+                    <p style="font-size: 10px; opacity: 0.8;">Selamat Datang,</p>
+                    <h2 style="font-size: 18px;">Administrator</h2>
+                </div>
+                <img src="https://ui-avatars.com/api/?name=Admin&background=FFB100&color=fff" style="width: 38px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3);">
+            </div>
+        </header>
+
+        <div class="content-body">
+            <div class="stats-scroll">
+                <div class="stat-card" style="border-color: var(--accent-color);">
+                    <p>Laporan Hari Ini</p>
+                    <h3>128</h3>
+                </div>
+                <div class="stat-card" style="border-color: var(--danger);">
+                    <p>Belum Ditangani</p>
+                    <h3 style="color: var(--danger);">45</h3>
+                </div>
+                <div class="stat-card" style="border-color: var(--info);">
+                    <p>Sedang Diproses</p>
+                    <h3 style="color: var(--info);">32</h3>
+                </div>
+                <div class="stat-card" style="border-color: var(--success);">
+                    <p>Selesai</p>
+                    <h3 style="color: var(--success);">51</h3>
+                </div>
+            </div>
+
+            <div class="data-list-section">
+                <div class="section-header">
+                    <h3 style="font-size: 15px; color: var(--primary-color);">Pantauan Lapangan</h3>
+                    <button class="action-btn"><i data-lucide="filter" size="16"></i></button>
+                </div>
+
+                <div class="report-item" onclick="location.href='detail.html'">
+                    <div class="report-info">
+                        <h4>Ahmad Muzaki</h4>
+                        <p>Jl. Raden Intan • Baru Saja</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="badge bg-warning">Menunggu</span>
+                        <div style="margin-top: 5px;"><i data-lucide="chevron-right" size="14" color="#CCC"></i></div>
+                    </div>
+                </div>
+
+                <div class="report-item">
+                    <div class="report-info">
+                        <h4>Riana Putri</h4>
+                        <p>Pasar Bambu Kuning • 15 mnt lalu</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="badge bg-process">Diproses</span>
+                        <div style="margin-top: 5px;"><i data-lucide="chevron-right" size="14" color="#CCC"></i></div>
+                    </div>
+                </div>
+
+                <div class="report-item">
+                    <div class="report-info">
+                        <h4>Budi Santoso</h4>
+                        <p>Jl. Sultan Agung • 1 jam lalu</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="badge bg-success">Selesai</span>
+                        <div style="margin-top: 5px;"><i data-lucide="chevron-right" size="14" color="#CCC"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="dashboardadmin.html" class="nav-item active">
+                <i data-lucide="layout-dashboard" size="22"></i>
+                <span>Ringkasan</span>
+            </a>
+            <a href="laporan.html" class="nav-item">
+                <i data-lucide="clipboard-list" size="22"></i>
+                <span>Laporan</span>
+            </a>
+            <a href="petugas.html" class="nav-item">
+                <i data-lucide="users" size="22"></i>
+                <span>Petugas</span>
+            </a>
+            <a href="sistem.html" class="nav-item">
+                <i data-lucide="settings" size="22"></i>
+                <span>Sistem</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
