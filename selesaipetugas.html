@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Selesai - Tapis Bersih</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-color: #1B4332;
+            --secondary-color: #2D6A4F;
+            --bg-light: #F4F7F6;
+            --success-color: #2D6A4F;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body { background-color: #CCC; display: flex; justify-content: center; }
+
+        .mobile-frame {
+            width: 100%; max-width: 414px; height: 100vh;
+            background: var(--bg-light); position: relative; 
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        /* Summary Header */
+        .summary-header {
+            background: var(--primary-color); padding: 30px 20px;
+            color: white; border-radius: 0 0 25px 25px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        }
+
+        .summary-stat {
+            background: rgba(255,255,255,0.1); padding: 15px;
+            border-radius: 15px; text-align: center;
+        }
+
+        .summary-stat h4 { font-size: 22px; color: #FFB100; }
+        .summary-stat p { font-size: 11px; opacity: 0.8; }
+
+        /* Content List */
+        .main-content { 
+            flex: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px;
+        }
+
+        .history-card {
+            background: white; border-radius: 18px; padding: 15px;
+            margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .history-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #F0F0F0;
+        }
+
+        .date-tag { font-size: 11px; color: #888; }
+        .success-badge { 
+            font-size: 10px; font-weight: 700; color: var(--success-color); 
+            background: #E8F5E9; padding: 4px 8px; border-radius: 6px;
+        }
+
+        .history-body { display: flex; gap: 15px; }
+        .proof-img { 
+            width: 80px; height: 80px; border-radius: 12px; 
+            background: #EEE; object-fit: cover;
+        }
+
+        .info-text h4 { font-size: 14px; color: var(--primary-color); margin-bottom: 5px; }
+        .info-text p { font-size: 12px; color: #666; display: flex; align-items: center; gap: 4px; }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: absolute; bottom: 0; width: 100%;
+            background: white; padding: 12px 20px;
+            display: flex; justify-content: space-between;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.05); border-top: 1px solid #EEE;
+        }
+
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            color: #AAA; text-decoration: none; font-size: 10px; font-weight: 600;
+        }
+
+        .nav-item.active { color: var(--secondary-color); }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <div class="summary-header">
+            <div class="summary-stat">
+                <h4>24</h4>
+                <p>Tugas Selesai</p>
+            </div>
+            <div class="summary-stat">
+                <h4>4.8</h4>
+                <p>Rating Performa</p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <h3 style="font-size: 16px; margin-bottom: 15px; color: var(--primary-color);">Riwayat Penanganan</h3>
+
+            <div class="history-card">
+                <div class="history-header">
+                    <span class="date-tag">Hari ini, 10 Jan 2026 - 09:15</span>
+                    <span class="success-badge">BERHASIL</span>
+                </div>
+                <div class="history-body">
+                    <img src="https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=150&q=80" class="proof-img" alt="Bukti Selesai">
+                    <div class="info-text">
+                        <h4>Jl. Raden Intan</h4>
+                        <p><i data-lucide="map-pin" size="12"></i> Tanjung Karang Pusat</p>
+                        <p style="margin-top: 5px; color: var(--success-color); font-weight: 600;">+ 50 Poin Kerja</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-card">
+                <div class="history-header">
+                    <span class="date-tag">09 Jan 2026 - 15:30</span>
+                    <span class="success-badge">BERHASIL</span>
+                </div>
+                <div class="history-body">
+                    <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=150&q=80" class="proof-img" alt="Bukti Selesai">
+                    <div class="info-text">
+                        <h4>Pasar Bambu Kuning</h4>
+                        <p><i data-lucide="map-pin" size="12"></i> Area Parkir Belakang</p>
+                        <p style="margin-top: 5px; color: var(--success-color); font-weight: 600;">+ 30 Poin Kerja</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-card">
+                <div class="history-header">
+                    <span class="date-tag">08 Jan 2026 - 11:20</span>
+                    <span class="success-badge">BERHASIL</span>
+                </div>
+                <div class="history-body">
+                    <div style="width: 80px; height: 80px; background: #DDD; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="image" color="#AAA"></i>
+                    </div>
+                    <div class="info-text">
+                        <h4>Jl. Sultan Agung</h4>
+                        <p><i data-lucide="map-pin" size="12"></i> Kedaton</p>
+                        <p style="margin-top: 5px; color: var(--success-color); font-weight: 600;">+ 50 Poin Kerja</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="dashboardpetugas.html" class="nav-item">
+                <i data-lucide="layout-dashboard" size="20"></i>
+                <span>Tugas</span>
+            </a>
+            <a href="rute.html" class="nav-item">
+                <i data-lucide="map" size="20"></i>
+                <span>Rute Peta</span>
+            </a>
+            <a href="selesaipetugas.html" class="nav-item active">
+                <i data-lucide="history" size="20"></i>
+                <span>Selesai</span>
+            </a>
+            <a href="profilepetugas.html" class="nav-item">
+                <i data-lucide="user-circle" size="20"></i>
+                <span>Profil</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
