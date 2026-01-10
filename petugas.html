@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Petugas - Tapis Bersih</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-color: #1B4332;
+            --secondary-color: #2D6A4F;
+            --accent-color: #FFB100;
+            --bg-light: #F4F7F6;
+            --text-dark: #212529;
+            --online: #4CAF50;
+            --offline: #9E9E9E;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body { background-color: #CCC; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+
+        .mobile-frame {
+            width: 100%; max-width: 414px; height: 100vh;
+            background: var(--bg-light); position: relative; 
+            display: flex; flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: white; padding: 20px; border-bottom: 1px solid #EEE;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .add-btn {
+            background: var(--secondary-color); color: white; border: none;
+            padding: 8px 12px; border-radius: 10px; font-size: 12px; font-weight: 600;
+            display: flex; align-items: center; gap: 6px; cursor: pointer;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: flex; padding: 15px 20px; gap: 10px;
+        }
+        .mini-stat {
+            flex: 1; background: white; padding: 12px; border-radius: 12px;
+            text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .mini-stat h5 { font-size: 16px; color: var(--primary-color); }
+        .mini-stat p { font-size: 10px; color: #888; font-weight: 600; }
+
+        /* Search & Filter */
+        .search-container { padding: 0 20px 15px; }
+        .search-box {
+            background: white; border: 1px solid #DDD; padding: 10px 15px;
+            border-radius: 12px; display: flex; align-items: center; gap: 10px;
+        }
+        .search-box input { border: none; outline: none; font-size: 14px; width: 100%; }
+
+        /* Officer List */
+        .officer-list { flex: 1; overflow-y: auto; padding: 0 20px 90px; }
+
+        .officer-card {
+            background: white; border-radius: 18px; padding: 15px; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 15px; position: relative;
+        }
+
+        .avatar-box { position: relative; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+        .status-dot {
+            position: absolute; bottom: 2px; right: 2px;
+            width: 12px; height: 12px; border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .officer-info { flex: 1; }
+        .officer-info h4 { font-size: 14px; color: var(--text-dark); }
+        .officer-info p { font-size: 11px; color: #888; }
+
+        .workload { text-align: right; }
+        .workload span { font-size: 12px; font-weight: 700; color: var(--secondary-color); }
+        .workload p { font-size: 9px; color: #AAA; text-transform: uppercase; }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: absolute; bottom: 0; width: 100%;
+            background: white; padding: 12px 20px;
+            display: flex; justify-content: space-between;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.05); border-top: 1px solid #EEE;
+        }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #AAA; text-decoration: none; font-size: 10px; font-weight: 600; }
+        .nav-item.active { color: var(--secondary-color); }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <header class="header">
+            <h2 style="font-size: 18px; color: var(--primary-color);">Data Petugas</h2>
+            <button class="add-btn"><i data-lucide="user-plus" size="16"></i> Tambah</button>
+        </header>
+
+        <div class="stats-row">
+            <div class="mini-stat">
+                <h5>12</h5>
+                <p>TOTAL</p>
+            </div>
+            <div class="mini-stat">
+                <h5 style="color: var(--online);">8</h5>
+                <p>ONLINE</p>
+            </div>
+            <div class="mini-stat">
+                <h5 style="color: var(--accent-color);">4</h5>
+                <p>OFFLINE</p>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <div class="search-box">
+                <i data-lucide="search" size="18" color="#AAA"></i>
+                <input type="text" placeholder="Cari nama petugas atau wilayah...">
+            </div>
+        </div>
+
+        <div class="officer-list">
+            
+            <div class="officer-card">
+                <div class="avatar-box">
+                    <img src="https://ui-avatars.com/api/?name=Supriadi&background=2D6A4F&color=fff" class="avatar">
+                    <div class="status-dot" style="background: var(--online);"></div>
+                </div>
+                <div class="officer-info">
+                    <h4>Supriadi</h4>
+                    <p>Wilayah: Tanjung Karang</p>
+                    <p style="color: var(--online); font-weight: 600;">Aktif (Truk 04)</p>
+                </div>
+                <div class="workload">
+                    <span>3 Tugas</span>
+                    <p>On Progress</p>
+                </div>
+            </div>
+
+            <div class="officer-card">
+                <div class="avatar-box">
+                    <img src="https://ui-avatars.com/api/?name=Mulyono&background=1B4332&color=fff" class="avatar">
+                    <div class="status-dot" style="background: var(--online);"></div>
+                </div>
+                <div class="officer-info">
+                    <h4>Mulyono</h4>
+                    <p>Wilayah: Kedaton</p>
+                    <p style="color: var(--online); font-weight: 600;">Aktif (Truk 07)</p>
+                </div>
+                <div class="workload">
+                    <span>1 Tugas</span>
+                    <p>On Progress</p>
+                </div>
+            </div>
+
+            <div class="officer-card">
+                <div class="avatar-box">
+                    <img src="https://ui-avatars.com/api/?name=Hendra&background=FFB100&color=fff" class="avatar">
+                    <div class="status-dot" style="background: var(--offline);"></div>
+                </div>
+                <div class="officer-info">
+                    <h4>Hendra Kurnia</h4>
+                    <p>Wilayah: Kemiling</p>
+                    <p style="color: #888;">Istirahat / Offline</p>
+                </div>
+                <div class="workload">
+                    <span style="color: #AAA;">0 Tugas</span>
+                    <p>Standby</p>
+                </div>
+            </div>
+
+            <div class="officer-card">
+                <div class="avatar-box">
+                    <img src="https://ui-avatars.com/api/?name=Bambang&background=2D6A4F&color=fff" class="avatar">
+                    <div class="status-dot" style="background: var(--online);"></div>
+                </div>
+                <div class="officer-info">
+                    <h4>Bambang S.</h4>
+                    <p>Wilayah: Rajabasa</p>
+                    <p style="color: var(--online); font-weight: 600;">Aktif (Motor Sampah)</p>
+                </div>
+                <div class="workload">
+                    <span>5 Tugas</span>
+                    <p>On Progress</p>
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="dashboardadmin.html" class="nav-item">
+                <i data-lucide="layout-dashboard" size="22"></i>
+                <span>Ringkasan</span>
+            </a>
+            <a href="laporan.html" class="nav-item">
+                <i data-lucide="clipboard-list" size="22"></i>
+                <span>Laporan</span>
+            </a>
+            <a href="petugas.html" class="nav-item active">
+                <i data-lucide="users" size="22"></i>
+                <span>Petugas</span>
+            </a>
+            <a href="sistem.html" class="nav-item">
+                <i data-lucide="settings" size="22"></i>
+                <span>Sistem</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
