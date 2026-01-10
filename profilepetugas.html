@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Petugas - Tapis Bersih</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-color: #1B4332;
+            --secondary-color: #2D6A4F;
+            --accent-color: #FFB100;
+            --bg-light: #F4F7F6;
+            --text-dark: #1B4332;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body { background-color: #CCC; display: flex; justify-content: center; }
+
+        .mobile-frame {
+            width: 100%; max-width: 414px; height: 100vh;
+            background: var(--bg-light); position: relative; 
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        /* Profile Header */
+        .profile-bg {
+            background: var(--primary-color);
+            padding: 40px 20px 60px;
+            text-align: center;
+            color: white;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px;
+        }
+
+        .avatar-img {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            object-fit: cover;
+        }
+
+        .badge-online {
+            position: absolute; bottom: 5px; right: 5px;
+            width: 15px; height: 15px;
+            background: #4CAF50; border: 2px solid var(--primary-color);
+            border-radius: 50%;
+        }
+
+        /* Stats Row */
+        .content-area {
+            flex: 1; padding: 0 20px; margin-top: -30px;
+            overflow-y: auto; padding-bottom: 100px;
+        }
+
+        .info-card {
+            background: white; padding: 20px; border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px;
+        }
+
+        .vehicle-info {
+            display: flex; align-items: center; gap: 15px;
+            padding: 15px; background: #F0F7F4; border-radius: 12px;
+            margin-top: 10px;
+        }
+
+        .menu-list { display: flex; flex-direction: column; gap: 10px; }
+
+        .menu-item {
+            display: flex; align-items: center; gap: 15px;
+            padding: 15px; background: white; border-radius: 15px;
+            text-decoration: none; color: var(--text-dark);
+            transition: 0.2s;
+        }
+
+        .menu-item:active { background: #EEE; }
+
+        .icon-box {
+            padding: 8px; border-radius: 10px; background: #E8F5E9;
+            color: var(--secondary-color);
+        }
+
+        .logout-btn { color: #E74C3C; margin-top: 10px; }
+        .logout-btn .icon-box { background: #FFEBEE; color: #E74C3C; }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: absolute; bottom: 0; width: 100%;
+            background: white; padding: 12px 20px;
+            display: flex; justify-content: space-between;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.05); border-top: 1px solid #EEE;
+        }
+
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            color: #AAA; text-decoration: none; font-size: 10px; font-weight: 600;
+        }
+
+        .nav-item.active { color: var(--secondary-color); }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-frame">
+        <div class="profile-bg">
+            <div class="avatar-wrapper">
+                <img src="https://ui-avatars.com/api/?name=Supriadi&background=FFB100&color=fff" class="avatar-img">
+                <div class="badge-online"></div>
+            </div>
+            <h3 style="font-size: 20px;">Supriadi</h3>
+            <p style="font-size: 12px; opacity: 0.8;">Petugas Kebersihan Kota - Wilayah A</p>
+        </div>
+
+        <div class="content-area">
+            <div class="info-card">
+                <h4 style="font-size: 14px; margin-bottom: 10px;">Informasi Kendaraan</h4>
+                <div class="vehicle-info">
+                    <i data-lucide="truck" size="24" color="#2D6A4F"></i>
+                    <div>
+                        <p style="font-size: 14px; font-weight: 700;">Truk Sampah 04 (BE 1234 AY)</p>
+                        <p style="font-size: 11px; color: #666;">Kapasitas: 5 Ton | Bahan Bakar: 80%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-list">
+                <a href="#" class="menu-item">
+                    <div class="icon-box"><i data-lucide="settings" size="20"></i></div>
+                    <span style="flex:1; font-size: 14px; font-weight: 600;">Pengaturan Akun</span>
+                    <i data-lucide="chevron-right" size="18" color="#CCC"></i>
+                </a>
+                <a href="#" class="menu-item">
+                    <div class="icon-box"><i data-lucide="award" size="20"></i></div>
+                    <span style="flex:1; font-size: 14px; font-weight: 600;">Pencapaian Kerja</span>
+                    <i data-lucide="chevron-right" size="18" color="#CCC"></i>
+                </a>
+                <a href="#" class="menu-item">
+                    <div class="icon-box"><i data-lucide="shield-alert" size="20"></i></div>
+                    <span style="flex:1; font-size: 14px; font-weight: 600;">Lapor Kendala Teknis</span>
+                    <i data-lucide="chevron-right" size="18" color="#CCC"></i>
+                </a>
+                <a href="index.html" class="menu-item logout-btn">
+                    <div class="icon-box"><i data-lucide="log-out" size="20"></i></div>
+                    <span style="flex:1; font-size: 14px; font-weight: 600;">Keluar Aplikasi</span>
+                </a>
+            </div>
+
+            <p style="text-align: center; font-size: 11px; color: #BBB; margin-top: 30px;">
+                Dinas Lingkungan Hidup Bandar Lampung<br>Versi 1.0.2-Officer
+            </p>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="dashboardpetugas.html" class="nav-item">
+                <i data-lucide="layout-dashboard" size="20"></i>
+                <span>Tugas</span>
+            </a>
+            <a href="rute.html" class="nav-item">
+                <i data-lucide="map" size="20"></i>
+                <span>Rute Peta</span>
+            </a>
+            <a href="selesaipetugas.html" class="nav-item">
+                <i data-lucide="history" size="20"></i>
+                <span>Selesai</span>
+            </a>
+            <a href="profilepetugas.html" class="nav-item active">
+                <i data-lucide="user-circle" size="20"></i>
+                <span>Profil</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
