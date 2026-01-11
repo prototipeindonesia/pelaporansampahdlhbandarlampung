@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Profil Petugas - Tapis Bersih</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -15,14 +15,23 @@
             --text-dark: #1B4332;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        * { 
+            margin: 0; padding: 0; box-sizing: border-box; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        body { background-color: #CCC; display: flex; justify-content: center; }
+        body { 
+            background-color: #CCC; 
+            display: flex; justify-content: center; 
+            height: 100vh; overflow: hidden;
+        }
 
         .mobile-frame {
-            width: 100%; max-width: 414px; height: 100vh;
+            width: 100%; max-width: 414px; height: 100%;
             background: var(--bg-light); position: relative; 
             display: flex; flex-direction: column; overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
         }
 
         /* Profile Header */
@@ -32,6 +41,8 @@
             text-align: center;
             color: white;
             border-radius: 0 0 30px 30px;
+            flex-shrink: 0;
+            z-index: 5;
         }
 
         .avatar-wrapper {
@@ -55,11 +66,16 @@
             border-radius: 50%;
         }
 
-        /* Stats Row */
+        /* Stats Row & Content Area */
         .content-area {
-            flex: 1; padding: 0 20px; margin-top: -30px;
-            overflow-y: auto; padding-bottom: 100px;
+            flex: 1; padding: 0 20px; 
+            margin-top: -30px;
+            overflow-y: auto; 
+            padding-bottom: 120px; /* Ruang agar tidak tertutup navigator */
+            scrollbar-width: none;
+            z-index: 1;
         }
+        .content-area::-webkit-scrollbar { display: none; }
 
         .info-card {
             background: white; padding: 20px; border-radius: 20px;
@@ -79,32 +95,59 @@
             padding: 15px; background: white; border-radius: 15px;
             text-decoration: none; color: var(--text-dark);
             transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
-        .menu-item:active { background: #EEE; }
+        .menu-item:active { transform: scale(0.98); background: #f9f9f9; }
 
         .icon-box {
             padding: 8px; border-radius: 10px; background: #E8F5E9;
             color: var(--secondary-color);
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .logout-btn { color: #E74C3C; margin-top: 10px; }
+        .logout-btn { color: #E74C3C; margin-top: 5px; }
         .logout-btn .icon-box { background: #FFEBEE; color: #E74C3C; }
 
-        /* Bottom Nav */
+        /* FLOATING NAVIGATOR (KONSISTEN) */
+        .bottom-nav-container {
+            position: absolute;
+            bottom: 45px;
+            left: 0;
+            width: 100%;
+            padding: 0 10px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
         .bottom-nav {
-            position: absolute; bottom: 0; width: 100%;
-            background: white; padding: 12px 20px;
-            display: flex; justify-content: space-between;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.05); border-top: 1px solid #EEE;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 5px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.05);
+            pointer-events: auto;
         }
 
         .nav-item {
-            display: flex; flex-direction: column; align-items: center;
-            color: #AAA; text-decoration: none; font-size: 10px; font-weight: 600;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #AAA;
+            text-decoration: none;
+            gap: 4px;
+            transition: all 0.2s ease;
         }
 
+        .nav-item i { width: 20px; height: 20px; }
+        .nav-item span { font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--secondary-color); }
+        .nav-item:active { transform: scale(0.9); }
+
     </style>
 </head>
 <body>
@@ -121,9 +164,9 @@
 
         <div class="content-area">
             <div class="info-card">
-                <h4 style="font-size: 14px; margin-bottom: 10px;">Informasi Kendaraan</h4>
+                <h4 style="font-size: 14px; margin-bottom: 10px; color: var(--primary-color);">Informasi Kendaraan</h4>
                 <div class="vehicle-info">
-                    <i data-lucide="truck" size="24" color="#2D6A4F"></i>
+                    <i data-lucide="truck" style="color: var(--secondary-color);"></i>
                     <div>
                         <p style="font-size: 14px; font-weight: 700;">Truk Sampah 04 (BE 1234 AY)</p>
                         <p style="font-size: 11px; color: #666;">Kapasitas: 5 Ton | Bahan Bakar: 80%</p>
@@ -135,17 +178,17 @@
                 <a href="#" class="menu-item">
                     <div class="icon-box"><i data-lucide="settings" size="20"></i></div>
                     <span style="flex:1; font-size: 14px; font-weight: 600;">Pengaturan Akun</span>
-                    <i data-lucide="chevron-right" size="18" color="#CCC"></i>
+                    <i data-lucide="chevron-right" size="18" style="color: #CCC"></i>
                 </a>
                 <a href="#" class="menu-item">
                     <div class="icon-box"><i data-lucide="award" size="20"></i></div>
                     <span style="flex:1; font-size: 14px; font-weight: 600;">Pencapaian Kerja</span>
-                    <i data-lucide="chevron-right" size="18" color="#CCC"></i>
+                    <i data-lucide="chevron-right" size="18" style="color: #CCC"></i>
                 </a>
                 <a href="#" class="menu-item">
                     <div class="icon-box"><i data-lucide="shield-alert" size="20"></i></div>
                     <span style="flex:1; font-size: 14px; font-weight: 600;">Lapor Kendala Teknis</span>
-                    <i data-lucide="chevron-right" size="18" color="#CCC"></i>
+                    <i data-lucide="chevron-right" size="18" style="color: #CCC"></i>
                 </a>
                 <a href="index.html" class="menu-item logout-btn">
                     <div class="icon-box"><i data-lucide="log-out" size="20"></i></div>
@@ -153,29 +196,31 @@
                 </a>
             </div>
 
-            <p style="text-align: center; font-size: 11px; color: #BBB; margin-top: 30px;">
+            <p style="text-align: center; font-size: 11px; color: #BBB; margin-top: 40px; line-height: 1.6;">
                 Dinas Lingkungan Hidup Bandar Lampung<br>Versi 1.0.2-Officer
             </p>
         </div>
 
-        <nav class="bottom-nav">
-            <a href="dashboardpetugas.html" class="nav-item">
-                <i data-lucide="layout-dashboard" size="20"></i>
-                <span>Tugas</span>
-            </a>
-            <a href="rute.html" class="nav-item">
-                <i data-lucide="map" size="20"></i>
-                <span>Rute Peta</span>
-            </a>
-            <a href="selesaipetugas.html" class="nav-item">
-                <i data-lucide="history" size="20"></i>
-                <span>Selesai</span>
-            </a>
-            <a href="profilepetugas.html" class="nav-item active">
-                <i data-lucide="user-circle" size="20"></i>
-                <span>Profil</span>
-            </a>
-        </nav>
+        <div class="bottom-nav-container">
+            <nav class="bottom-nav">
+                <a href="dashboardpetugas.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Tugas</span>
+                </a>
+                <a href="rute.html" class="nav-item">
+                    <i data-lucide="map"></i>
+                    <span>Rute Peta</span>
+                </a>
+                <a href="selesaipetugas.html" class="nav-item">
+                    <i data-lucide="history"></i>
+                    <span>Selesai</span>
+                </a>
+                <a href="profilepetugas.html" class="nav-item active">
+                    <i data-lucide="user-circle"></i>
+                    <span>Profil</span>
+                </a>
+            </nav>
+        </div>
     </div>
 
     <script>
