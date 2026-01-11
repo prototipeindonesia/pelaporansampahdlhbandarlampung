@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Rute Navigasi - Tapis Bersih</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -14,14 +14,23 @@
             --bg-light: #F4F7F6;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        * { 
+            margin: 0; padding: 0; box-sizing: border-box; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        body { background-color: #CCC; display: flex; justify-content: center; }
+        body { 
+            background-color: #CCC; 
+            display: flex; justify-content: center; 
+            height: 100vh; overflow: hidden;
+        }
 
         .mobile-frame {
-            width: 100%; max-width: 414px; height: 100vh;
+            width: 100%; max-width: 414px; height: 100%;
             background: #E5E5E5; position: relative; 
             display: flex; flex-direction: column; overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
         }
 
         /* Top Bar Floating */
@@ -32,68 +41,91 @@
             display: flex; align-items: center; gap: 15px;
         }
 
-        .back-btn { background: #F0F0F0; border: none; padding: 5px; border-radius: 8px; cursor: pointer; }
+        .back-btn { 
+            background: #F0F0F0; border: none; padding: 8px; 
+            border-radius: 10px; cursor: pointer; display: flex;
+        }
 
         /* Simulated Map Area */
         .map-area {
             flex: 1;
-            background-image: url('rute.png') center/cover;
+            background-image: url('https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/105.2663,-5.3971,14,0/414x896?access_token=p.demo');
+            background-size: cover;
+            background-position: center;
             position: relative;
         }
 
-        /* Simulated Navigation Line */
-        .route-path {
-            position: absolute; top: 40%; left: 30%;
-            width: 150px; height: 100px;
-            border-left: 5px solid #3498db; border-bottom: 5px solid #3498db;
-            border-bottom-left-radius: 20px;
-            filter: drop-shadow(0 0 5px rgba(52, 152, 219, 0.5));
-        }
-
         .marker-end {
-            position: absolute; top: 35%; left: 25%;
+            position: absolute; top: 35%; left: 45%;
             color: #E74C3C; animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(231, 76, 60, 0)); }
+            50% { transform: scale(1.2); filter: drop-shadow(0 0 10px rgba(231, 76, 60, 0.5)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(231, 76, 60, 0)); }
         }
 
-        /* Navigation Sheet (Bottom Card) */
+        /* Navigation Sheet (Bottom Card) - Disesuaikan agar tidak tertutup nav */
         .nav-sheet {
-            background: white; padding: 25px 20px;
+            background: white; padding: 20px;
             border-radius: 25px 25px 0 0;
             box-shadow: 0 -10px 20px rgba(0,0,0,0.1);
             z-index: 20;
+            margin-bottom: 110px; /* Memberi ruang untuk navigator melayang */
         }
 
-        .info-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .info-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .time-tag { background: var(--primary-color); color: white; padding: 5px 12px; border-radius: 10px; font-weight: 700; font-size: 14px; }
 
         .instruction-box {
-            display: flex; align-items: flex-start; gap: 15px;
-            padding: 15px; background: var(--bg-light); border-radius: 15px;
-            margin-bottom: 20px;
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 12px; background: var(--bg-light); border-radius: 12px;
+            margin-bottom: 15px;
         }
 
         .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         
         .btn-nav {
-            padding: 12px; border-radius: 12px; border: none; font-weight: 700; font-size: 13px;
+            padding: 12px; border-radius: 10px; border: none; font-weight: 700; font-size: 13px;
             display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
         }
         .btn-google { background: #4285F4; color: white; }
         .btn-arrived { background: var(--secondary-color); color: white; }
 
-        /* Bottom Nav Consistency */
-        .bottom-nav {
-            background: white; padding: 12px 20px;
-            display: flex; justify-content: space-between;
-            border-top: 1px solid #EEE;
+        /* FLOATING NAVIGATOR (Identik dengan Dashboard Petugas) */
+        .bottom-nav-container {
+            position: absolute;
+            bottom: 30px; /* Sedikit lebih rendah untuk estetika peta */
+            left: 0;
+            width: 100%;
+            padding: 0 10px;
+            z-index: 1000;
         }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: #AAA; text-decoration: none; font-size: 10px; }
+
+        .bottom-nav {
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 5px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #AAA;
+            text-decoration: none;
+            gap: 4px;
+        }
+
+        .nav-item i { width: 20px; height: 20px; }
+        .nav-item span { font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--secondary-color); }
     </style>
 </head>
@@ -102,18 +134,17 @@
     <div class="mobile-frame">
         <div class="top-bar">
             <button class="back-btn" onclick="window.history.back()">
-                <i data-lucide="chevron-left" size="20"></i>
+                <i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i>
             </button>
             <div>
-                <p style="font-size: 11px; color: #888;">Menuju Lokasi:</p>
+                <p style="font-size: 10px; color: #888; text-transform: uppercase; font-weight: 700;">Menuju Lokasi:</p>
                 <h4 style="font-size: 14px; color: var(--primary-color);">Jl. Raden Intan, No. 12</h4>
             </div>
         </div>
 
         <div class="map-area">
-            <div class="route-path"></div>
             <div class="marker-end">
-                <i data-lucide="map-pin" fill="#E74C3C" size="32"></i>
+                <i data-lucide="map-pin" fill="#E74C3C" color="white" style="width: 40px; height: 40px;"></i>
             </div>
         </div>
 
@@ -121,47 +152,49 @@
             <div class="info-header">
                 <div>
                     <span class="time-tag">8 Menit</span>
-                    <span style="font-size: 14px; color: #666; margin-left: 10px;">2.4 km</span>
+                    <span style="font-size: 14px; color: #666; margin-left: 10px; font-weight: 600;">2.4 km</span>
                 </div>
-                <i data-lucide="navigation" style="color: #4285F4;"></i>
+                <i data-lucide="navigation" style="color: #4285F4; width: 24px; height: 24px;"></i>
             </div>
 
             <div class="instruction-box">
-                <i data-lucide="corner-up-right" style="color: var(--secondary-color);"></i>
+                <i data-lucide="corner-up-right" style="color: var(--secondary-color); width: 20px; height: 20px;"></i>
                 <div>
-                    <p style="font-size: 12px; color: #888;">Langkah selanjutnya:</p>
-                    <p style="font-size: 14px; font-weight: 600;">Belok kanan ke arah Jl. Ahmad Yani</p>
+                    <p style="font-size: 11px; color: #888;">Langkah selanjutnya:</p>
+                    <p style="font-size: 13px; font-weight: 600;">Belok kanan ke arah Jl. Ahmad Yani</p>
                 </div>
             </div>
 
             <div class="btn-group">
-                <button class="btn-nav btn-google" onclick="window.open('https://maps.google.com')">
-                    <i data-lucide="external-link" size="16"></i> Maps
+                <button class="btn-nav btn-google">
+                    <i data-lucide="external-link" style="width: 16px; height: 16px;"></i> Maps
                 </button>
-                <button class="btn-nav btn-arrived" onclick="alert('Status: Petugas Sampai di Lokasi'); window.location.href='dashboardpetugas.html'">
-                    <i data-lucide="check-circle" size="16"></i> Sampai
+                <button class="btn-nav btn-arrived" onclick="alert('Status: Sampai'); window.location.href='dashboardpetugas.html'">
+                    <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i> Sampai
                 </button>
             </div>
         </div>
 
-        <nav class="bottom-nav">
-            <a href="dashboardpetugas.html" class="nav-item">
-                <i data-lucide="layout-dashboard" size="20"></i>
-                <span>Tugas</span>
-            </a>
-            <a href="rute.html" class="nav-item active">
-                <i data-lucide="map" size="20"></i>
-                <span>Rute Peta</span>
-            </a>
-            <a href="selesaipetugas.html" class="nav-item">
-                <i data-lucide="history" size="20"></i>
-                <span>Selesai</span>
-            </a>
-            <a href="profilepetugas.html" class="nav-item">
-                <i data-lucide="user-circle" size="20"></i>
-                <span>Profil</span>
-            </a>
-        </nav>
+        <div class="bottom-nav-container">
+            <nav class="bottom-nav">
+                <a href="dashboardpetugas.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Tugas</span>
+                </a>
+                <a href="rute.html" class="nav-item active">
+                    <i data-lucide="map"></i>
+                    <span>Rute Peta</span>
+                </a>
+                <a href="selesaipetugas.html" class="nav-item">
+                    <i data-lucide="history"></i>
+                    <span>Selesai</span>
+                </a>
+                <a href="profilepetugas.html" class="nav-item">
+                    <i data-lucide="user-circle"></i>
+                    <span>Profil</span>
+                </a>
+            </nav>
+        </div>
     </div>
 
     <script>
