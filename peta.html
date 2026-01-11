@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Peta Sebaran - Tapis Bersih</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,22 +19,26 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-light);
+            background-color: #CCC;
             display: flex;
             justify-content: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .mobile-frame {
             width: 100%;
             max-width: 414px;
-            height: 100vh;
-            background: #E5E5E5; /* Warna dasar peta */
+            height: 100%;
+            background: #E5E5E5; 
             display: flex;
             flex-direction: column;
             position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
             overflow: hidden;
         }
 
@@ -67,7 +71,7 @@
         /* Map Background Simulation */
         .map-bg {
             flex: 1;
-            background-image: url('peta.png'); /* Contoh visual peta Bandar Lampung */
+            background-image: url('https://api.mapbox.com/styles/v1/mapbox/light-v10/static/105.2663,-5.3971,13,0/414x896?access_token=p.demo'); /* Placeholder Peta Bandar Lampung */
             background-size: cover;
             background-position: center;
             position: relative;
@@ -76,82 +80,90 @@
         /* Custom Markers */
         .marker {
             position: absolute;
-            color: var(--primary-color);
-            background: white;
-            padding: 5px;
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             cursor: pointer;
             animation: bounce 2s infinite;
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-8px); }
         }
 
-        /* Info Card at Bottom */
+        /* Info Card at Bottom (Dinaikkan sedikit agar tidak tertutup nav melayang) */
         .info-card {
             position: absolute;
-            bottom: 100px;
-            left: 20px;
-            right: 20px;
+            bottom: 125px; 
+            left: 15px;
+            right: 15px;
             background: white;
             padding: 15px;
             border-radius: 20px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
             display: flex;
             gap: 15px;
             z-index: 10;
         }
 
         .info-img {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: #EEE;
             border-radius: 12px;
             object-fit: cover;
         }
 
-        .info-content h4 { font-size: 14px; margin-bottom: 4px; }
-        .info-content p { font-size: 11px; color: #666; }
+        .info-content h4 { font-size: 14px; color: var(--text-dark); margin-bottom: 4px; }
+        .info-content p { font-size: 11px; color: #666; line-height: 1.4; }
 
         .btn-detail {
             background: var(--primary-color);
             color: white;
             border: none;
-            padding: 5px 12px;
+            padding: 6px 12px;
             border-radius: 8px;
-            font-size: 10px;
+            font-size: 11px;
+            font-weight: 600;
             margin-top: 8px;
             cursor: pointer;
         }
 
-        /* Bottom Nav */
-        .bottom-nav {
+        /* FLOATING NAVIGATOR (Identik dengan Dashboard) */
+        .bottom-nav-container {
             position: absolute;
-            bottom: 0;
+            bottom: 45px;
+            left: 0;
             width: 100%;
+            padding: 0 10px;
+            z-index: 999;
+        }
+
+        .bottom-nav {
             background: white;
-            padding: 15px 25px;
             display: flex;
-            justify-content: space-between;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
-            border-radius: 25px 25px 0 0;
-            z-index: 20;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 5px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .nav-item {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             color: #AAA;
             text-decoration: none;
-            font-size: 10px;
-            font-weight: 600;
+            gap: 4px;
+            transition: all 0.2s ease;
         }
 
+        .nav-item i { width: 20px; height: 20px; }
+        .nav-item span { font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--primary-color); }
+        .nav-item:active { transform: scale(0.9); }
+
     </style>
 </head>
 <body>
@@ -160,50 +172,52 @@
         <div class="search-container">
             <div class="search-bar">
                 <i data-lucide="search" size="18" style="color: #999;"></i>
-                <input type="text" placeholder="Cari titik sampah di Bandar Lampung...">
+                <input type="text" placeholder="Cari titik sampah...">
                 <i data-lucide="sliders-horizontal" size="18" style="color: var(--primary-color);"></i>
             </div>
         </div>
 
         <div class="map-bg">
-            <div class="marker" style="top: 30%; left: 40%;">
-                <i data-lucide="map-pin" fill="var(--primary-color)" color="white"></i>
+            <div class="marker" style="top: 35%; left: 45%;">
+                <i data-lucide="map-pin" fill="var(--primary-color)" color="white" size="32"></i>
             </div>
-            <div class="marker" style="top: 55%; left: 60%;">
-                <i data-lucide="map-pin" fill="#E74C3C" color="white"></i>
+            <div class="marker" style="top: 50%; left: 25%;">
+                <i data-lucide="map-pin" fill="#E74C3C" color="white" size="32"></i>
             </div>
-            <div class="marker" style="top: 45%; left: 20%;">
-                <i data-lucide="map-pin" fill="var(--secondary-color)" color="white"></i>
+            <div class="marker" style="top: 20%; left: 70%;">
+                <i data-lucide="map-pin" fill="var(--secondary-color)" color="white" size="32"></i>
             </div>
         </div>
 
         <div class="info-card">
-            <img src="tumpukansampah1.jpeg" class="info-img">
+            <img src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&w=150&q=80" class="info-img" alt="Sampah">
             <div class="info-content">
                 <h4>Titik Sampah: Jl. Kartini</h4>
                 <p>Status: <span style="color: var(--secondary-color); font-weight: bold;">Sedang Dijemput</span></p>
                 <p>Estimasi: 15 Menit lagi</p>
-                <button class="btn-detail">Lihat Detail Laporan</button>
+                <button class="btn-detail" onclick="window.location.href='detail_laporan.html'">Lihat Detail Laporan</button>
             </div>
         </div>
 
-        <div class="bottom-nav">
-            <a href="dashboardmasyarakat.html" class="nav-item">
-                <i data-lucide="home"></i>
-                <span>Beranda</span>
-            </a>
-            <a href="riwayat.html" class="nav-item">
-                <i data-lucide="clipboard-list"></i>
-                <span>Riwayat</span>
-            </a>
-            <a href="peta.html" class="nav-item active">
-                <i data-lucide="map-pin"></i>
-                <span>Peta</span>
-            </a>
-            <a href="profil.html" class="nav-item">
-                <i data-lucide="user"></i>
-                <span>Profil</span>
-            </a>
+        <div class="bottom-nav-container">
+            <nav class="bottom-nav">
+                <a href="dashboardmasyarakat.html" class="nav-item">
+                    <i data-lucide="home"></i>
+                    <span>Beranda</span>
+                </a>
+                <a href="riwayat.html" class="nav-item">
+                    <i data-lucide="clipboard-list"></i>
+                    <span>Riwayat</span>
+                </a>
+                <a href="peta.html" class="nav-item active">
+                    <i data-lucide="map-pin"></i>
+                    <span>Peta</span>
+                </a>
+                <a href="profil.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span>Profil</span>
+                </a>
+            </nav>
         </div>
     </div>
 
