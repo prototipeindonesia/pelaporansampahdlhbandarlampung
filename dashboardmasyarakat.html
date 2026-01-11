@@ -22,7 +22,7 @@
         }
 
         body {
-            background-color: #CCC; /* Latar belakang luar frame */
+            background-color: #CCC;
             display: flex;
             justify-content: center;
         }
@@ -45,9 +45,9 @@
             padding: 20px 20px 60px;
             border-radius: 0 0 30px 30px;
             color: rgb(255, 255, 255);
+            flex-shrink: 0; /* Mencegah header mengecil */
         }
 
-        /* Brand/Instansi Branding */
         .brand-section {
             display: flex;
             align-items: center;
@@ -97,16 +97,21 @@
             background: rgba(255,255,255,0.2);
             padding: 8px;
             border-radius: 12px;
-            position: relative;
         }
 
-        /* Stats Cards */
+        /* Content Area */
         .content {
             flex: 1;
             padding: 0 20px;
             margin-top: -30px;
             overflow-y: auto;
-            padding-bottom: 100px;
+            /* Padding bottom ekstra agar konten terakhir tidak tertutup nav */
+            padding-bottom: 100px; 
+            scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
+        }
+
+        .content::-webkit-scrollbar {
+            display: none; /* Sembunyikan scrollbar di Chrome/Safari */
         }
 
         .main-card {
@@ -127,11 +132,9 @@
         }
 
         .stat-box:last-child { border: none; }
-
         .stat-box h4 { font-size: 20px; color: var(--primary-color); }
         .stat-box p { font-size: 11px; color: #666; }
 
-        /* Quick Action */
         .section-title {
             font-size: 16px;
             font-weight: 700;
@@ -139,11 +142,12 @@
             color: var(--text-dark);
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .report-btn {
             background: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -152,10 +156,10 @@
             text-decoration: none;
             color: var(--text-dark);
             border: 2px dashed var(--secondary-color);
-            transition: 0.3s;
+            transition: 0.2s;
         }
 
-        .report-btn:active { transform: scale(0.95); }
+        .report-btn:active { transform: scale(0.98); background: #f0fff4; }
 
         .icon-box {
             background: #E8F5E9;
@@ -164,7 +168,6 @@
             color: var(--primary-color);
         }
 
-        /* News Section */
         .news-card {
             background: white;
             border-radius: 15px;
@@ -179,33 +182,50 @@
             flex: 1;
         }
 
-        .news-info h5 { font-size: 13px; margin-bottom: 5px; }
+        .news-info h5 { font-size: 13px; margin-bottom: 5px; color: var(--text-dark); }
         .news-info p { font-size: 11px; color: #888; }
 
-        /* Bottom Nav */
+        /* Bottom Nav - UPDATED */
         .bottom-nav {
             position: absolute;
             bottom: 0;
+            left: 0;
             width: 100%;
             background: white;
-            padding: 15px 25px;
+            /* Padding atas 12px, samping 10px, bawah 20px untuk area jempol */
+            padding: 12px 10px 20px; 
             display: flex;
-            justify-content: space-between;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            justify-content: space-around; /* Lebih merata di mobile */
+            align-items: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
             border-radius: 25px 25px 0 0;
+            z-index: 100;
         }
 
         .nav-item {
+            flex: 1; /* Memberikan area klik yang luas */
             display: flex;
             flex-direction: column;
             align-items: center;
             color: #AAA;
             text-decoration: none;
+            gap: 4px;
+            transition: 0.3s;
+        }
+
+        .nav-item i {
+            width: 22px;
+            height: 22px;
+        }
+
+        .nav-item span {
             font-size: 10px;
             font-weight: 600;
         }
 
-        .nav-item.active { color: var(--primary-color); }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -213,7 +233,7 @@
     <div class="mobile-frame">
         <div class="header">
             <div class="brand-section">
-                <img src="logo.png" alt="Logo" class="instansi-logo" onerror="this.src='https://via.placeholder.com/35?text=Logo'">
+                <img src="logo.png" alt="Logo" class="instansi-logo" onerror="this.src='https://via.placeholder.com/35/2D6A4F/ffffff?text=DLH'">
                 <div class="brand-text">
                     <h2>DINAS LINGKUNGAN HIDUP</h2>
                     <p>Pemerintah Kota Bandar Lampung</p>
@@ -226,7 +246,7 @@
                     <h3>Ibu Olivia</h3>
                 </div>
                 <div class="notification-btn">
-                    <i data-lucide="bell" size="20"></i>
+                    <i data-lucide="bell"></i>
                 </div>
             </div>
         </div>
@@ -246,11 +266,11 @@
             <div class="section-title">Layanan Cepat</div>
             <a href="laporsampah.html" class="report-btn">
                 <div class="icon-box">
-                    <i data-lucide="camera" size="28"></i>
+                    <i data-lucide="camera"></i>
                 </div>
                 <div>
-                    <h4 style="font-size: 15px;">Lapor Sampah</h4>
-                    <p style="font-size: 12px; color: #666;">Klik untuk foto & lapor tumpukan sampah</p>
+                    <h4 style="font-size: 14px;">Lapor Sampah</h4>
+                    <p style="font-size: 11px; color: #666;">Klik untuk foto & lapor tumpukan sampah</p>
                 </div>
             </a>
 
@@ -260,7 +280,7 @@
             </div>
 
             <div class="news-card">
-                <div style="width:100px; height:80px; background: url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=100&q=80') center/cover;"></div>
+                <div style="width:80px; min-width:80px; height:80px; background: url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=100&q=80') center/cover;"></div>
                 <div class="news-info">
                     <h5>Jadwal Pengangkutan Sampah Kecamatan Enggal</h5>
                     <p>Mulai 1 Januari, armada akan datang pukul 07.00 WIB...</p>
@@ -268,7 +288,7 @@
             </div>
 
             <div class="news-card">
-                <div style="width:100px; height:80px; background: url('https://images.unsplash.com/photo-1536939459926-301728717817?auto=format&fit=crop&w=100&q=80') center/cover;"></div>
+                <div style="width:80px; min-width:80px; height:80px; background: url('https://images.unsplash.com/photo-1536939459926-301728717817?auto=format&fit=crop&w=100&q=80') center/cover;"></div>
                 <div class="news-info">
                     <h5>Cara Memilah Sampah Rumah Tangga</h5>
                     <p>Mari mulai memisahkan sampah organik dan anorganik...</p>
@@ -276,7 +296,7 @@
             </div>
         </div>
 
-        <div class="bottom-nav">
+        <nav class="bottom-nav">
             <a href="dashboardmasyarakat.html" class="nav-item active">
                 <i data-lucide="home"></i>
                 <span>Beranda</span>
@@ -293,10 +313,11 @@
                 <i data-lucide="user"></i>
                 <span>Profil</span>
             </a>
-        </div>
+        </nav>
     </div>
 
     <script>
+        // Inisialisasi ikon Lucide
         lucide.createIcons();
     </script>
 </body>
