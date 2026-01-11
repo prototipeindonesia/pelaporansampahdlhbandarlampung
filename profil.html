@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Profil Saya - Tapis Bersih</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -20,22 +20,26 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-light);
+            background-color: #CCC;
             display: flex;
             justify-content: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .mobile-frame {
             width: 100%;
             max-width: 414px;
-            height: 100vh;
+            height: 100%;
             background: var(--bg-light);
             display: flex;
             flex-direction: column;
             position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
             overflow: hidden;
         }
 
@@ -46,6 +50,7 @@
             text-align: center;
             color: white;
             border-radius: 0 0 40px 40px;
+            flex-shrink: 0;
         }
 
         .avatar-container {
@@ -72,24 +77,30 @@
             border-radius: 50%;
             color: white;
             border: 3px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .profile-header h2 { font-size: 20px; font-weight: 700; }
+        .profile-header h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
         .profile-header p { font-size: 13px; opacity: 0.8; }
 
-        /* Profile Menu */
+        /* Profile Menu List */
         .profile-content {
             flex: 1;
             padding: 0 20px;
             margin-top: -40px;
             overflow-y: auto;
-            padding-bottom: 100px;
+            /* Padding bottom diperbesar untuk ruang navigator melayang */
+            padding-bottom: 140px; 
+            scrollbar-width: none;
         }
+        .profile-content::-webkit-scrollbar { display: none; }
 
         .menu-group {
             background: white;
             border-radius: 20px;
-            padding: 10px;
+            padding: 5px;
             margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
@@ -106,50 +117,64 @@
         }
 
         .menu-item:last-child { border-bottom: none; }
-        .menu-item:active { background: #F9F9F9; }
+        .menu-item:active { background: #F9F9F9; transform: scale(0.98); }
 
         .menu-icon {
             background: #E8F5E9;
             padding: 8px;
             border-radius: 10px;
             color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .menu-text { flex: 1; font-size: 14px; font-weight: 600; }
         .menu-arrow { color: #CCC; }
 
-        .logout-btn {
-            color: var(--danger-color);
-        }
+        .logout-btn { color: var(--danger-color); }
         .logout-btn .menu-icon {
             background: #FEE2E2;
             color: var(--danger-color);
         }
 
-        /* Bottom Nav */
-        .bottom-nav {
+        /* FLOATING NAVIGATOR LAYOUT (Identik dengan Dashboard) */
+        .bottom-nav-container {
             position: absolute;
-            bottom: 0;
+            bottom: 45px;
+            left: 0;
             width: 100%;
+            padding: 0 10px;
+            z-index: 999;
+        }
+
+        .bottom-nav {
             background: white;
-            padding: 15px 25px;
             display: flex;
-            justify-content: space-between;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
-            border-radius: 25px 25px 0 0;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 5px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .nav-item {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             color: #AAA;
             text-decoration: none;
-            font-size: 10px;
-            font-weight: 600;
+            gap: 4px;
+            transition: all 0.2s ease;
         }
 
+        .nav-item i { width: 20px; height: 20px; }
+        .nav-item span { font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--primary-color); }
+        .nav-item:active { transform: scale(0.9); }
+
     </style>
 </head>
 <body>
@@ -159,7 +184,7 @@
             <div class="avatar-container">
                 <img src="https://ui-avatars.com/api/?name=Olivia&background=52B788&color=fff" class="avatar-img" alt="User">
                 <div class="edit-avatar">
-                    <i data-lucide="camera" size="14"></i>
+                    <i data-lucide="camera" style="width: 14px; height: 14px;"></i>
                 </div>
             </div>
             <h2>Olivia</h2>
@@ -167,66 +192,67 @@
         </div>
 
         <div class="profile-content">
-            
             <div class="menu-group">
                 <a href="#" class="menu-item">
-                    <div class="menu-icon"><i data-lucide="user" size="18"></i></div>
+                    <div class="menu-icon"><i data-lucide="user" style="width: 18px; height: 18px;"></i></div>
                     <span class="menu-text">Edit Profil</span>
-                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                    <i data-lucide="chevron-right" class="menu-arrow" style="width: 18px; height: 18px;"></i>
                 </a>
                 <a href="#" class="menu-item">
-                    <div class="menu-icon"><i data-lucide="map-pin" size="18"></i></div>
+                    <div class="menu-icon"><i data-lucide="map-pin" style="width: 18px; height: 18px;"></i></div>
                     <span class="menu-text">Alamat Tersimpan</span>
-                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                    <i data-lucide="chevron-right" class="menu-arrow" style="width: 18px; height: 18px;"></i>
                 </a>
             </div>
 
             <div class="menu-group">
                 <a href="#" class="menu-item">
-                    <div class="menu-icon"><i data-lucide="bell" size="18"></i></div>
+                    <div class="menu-icon"><i data-lucide="bell" style="width: 18px; height: 18px;"></i></div>
                     <span class="menu-text">Notifikasi</span>
-                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                    <i data-lucide="chevron-right" class="menu-arrow" style="width: 18px; height: 18px;"></i>
                 </a>
                 <a href="#" class="menu-item">
-                    <div class="menu-icon"><i data-lucide="shield-check" size="18"></i></div>
+                    <div class="menu-icon"><i data-lucide="shield-check" style="width: 18px; height: 18px;"></i></div>
                     <span class="menu-text">Keamanan Akun</span>
-                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                    <i data-lucide="chevron-right" class="menu-arrow" style="width: 18px; height: 18px;"></i>
                 </a>
                 <a href="#" class="menu-item">
-                    <div class="menu-icon"><i data-lucide="help-circle" size="18"></i></div>
+                    <div class="menu-icon"><i data-lucide="help-circle" style="width: 18px; height: 18px;"></i></div>
                     <span class="menu-text">Pusat Bantuan</span>
-                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                    <i data-lucide="chevron-right" class="menu-arrow" style="width: 18px; height: 18px;"></i>
                 </a>
             </div>
 
             <div class="menu-group">
                 <a href="index.html" class="menu-item logout-btn">
-                    <div class="menu-icon"><i data-lucide="log-out" size="18"></i></div>
+                    <div class="menu-icon"><i data-lucide="log-out" style="width: 18px; height: 18px;"></i></div>
                     <span class="menu-text">Keluar Akun</span>
-                    <i data-lucide="chevron-right" size="18" class="menu-arrow"></i>
+                    <i data-lucide="chevron-right" class="menu-arrow" style="width: 18px; height: 18px;"></i>
                 </a>
             </div>
 
             <p style="text-align: center; font-size: 11px; color: #BBB; margin-bottom: 20px;">Versi Aplikasi 1.0.2 (Build 2026)</p>
         </div>
 
-        <div class="bottom-nav">
-            <a href="dashboardmasyarakat.html" class="nav-item">
-                <i data-lucide="home"></i>
-                <span>Beranda</span>
-            </a>
-            <a href="riwayat.html" class="nav-item">
-                <i data-lucide="clipboard-list"></i>
-                <span>Riwayat</span>
-            </a>
-            <a href="peta.html" class="nav-item">
-                <i data-lucide="map-pin"></i>
-                <span>Peta</span>
-            </a>
-            <a href="profile.html" class="nav-item active">
-                <i data-lucide="user"></i>
-                <span>Profil</span>
-            </a>
+        <div class="bottom-nav-container">
+            <nav class="bottom-nav">
+                <a href="dashboardmasyarakat.html" class="nav-item">
+                    <i data-lucide="home"></i>
+                    <span>Beranda</span>
+                </a>
+                <a href="riwayat.html" class="nav-item">
+                    <i data-lucide="clipboard-list"></i>
+                    <span>Riwayat</span>
+                </a>
+                <a href="peta.html" class="nav-item">
+                    <i data-lucide="map-pin"></i>
+                    <span>Peta</span>
+                </a>
+                <a href="profil.html" class="nav-item active">
+                    <i data-lucide="user"></i>
+                    <span>Profil</span>
+                </a>
+            </nav>
         </div>
     </div>
 
