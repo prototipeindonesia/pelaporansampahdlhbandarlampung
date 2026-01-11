@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Dashboard Petugas - Tapis Bersih</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -15,52 +15,41 @@
             --text-gray: #666;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-
-        body { background-color: #CCC; display: flex; justify-content: center; }
-
-        .mobile-frame {
-            width: 100%; max-width: 414px; height: 100vh;
-            background: var(--bg-light); position: relative; 
-            display: flex; flex-direction: column; overflow: hidden;
+        * { 
+            margin: 0; padding: 0; box-sizing: border-box; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Header Petugas Updated */
+        body { 
+            background-color: #CCC; 
+            display: flex; justify-content: center; 
+            height: 100vh; overflow: hidden;
+        }
+
+        .mobile-frame {
+            width: 100%; max-width: 414px; height: 100%;
+            background: var(--bg-light); position: relative; 
+            display: flex; flex-direction: column; overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        /* Header Petugas */
         .header-petugas {
             background: var(--primary-color); padding: 20px;
             color: white; border-radius: 0 0 25px 25px;
-            flex-shrink: 0;
+            flex-shrink: 0; z-index: 10;
         }
 
-        /* Branding Instansi Section */
         .instansi-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 20px; padding-bottom: 15px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .logo-instansi {
-            width: 35px;
-            height: 35px;
-            object-fit: contain;
-        }
-
-        .instansi-name h2 {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 0;
-        }
-
-        .instansi-name p {
-            font-size: 10px;
-            opacity: 0.7;
-            margin: 0;
-        }
+        .logo-instansi { width: 35px; height: 35px; object-fit: contain; }
+        .instansi-name h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin: 0; }
+        .instansi-name p { font-size: 10px; opacity: 0.7; margin: 0; }
 
         .profile-flex { display: flex; align-items: center; gap: 15px; }
         .avatar { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--accent-color); object-fit: cover; }
@@ -70,8 +59,10 @@
             flex: 1; 
             padding: 20px; 
             overflow-y: auto; 
-            padding-bottom: 100px; 
+            padding-bottom: 130px; /* Ruang ekstra untuk nav melayang */
+            scrollbar-width: none;
         }
+        .main-content::-webkit-scrollbar { display: none; }
 
         .section-title { font-size: 16px; font-weight: 700; margin-bottom: 15px; color: var(--primary-color); }
 
@@ -85,7 +76,7 @@
         .priority-tag { font-size: 10px; background: #FFF4E5; color: #D68910; padding: 4px 8px; border-radius: 5px; font-weight: 700; }
         
         .task-body h4 { font-size: 14px; margin-bottom: 5px; color: var(--primary-color); }
-        .task-body p { font-size: 12px; color: var(--text-gray); display: flex; align-items: center; gap: 5px; }
+        .task-body p { font-size: 12px; color: var(--text-gray); display: flex; align-items: center; gap: 5px; margin-bottom: 3px; }
 
         .btn-action {
             width: 100%; margin-top: 15px; padding: 12px;
@@ -93,12 +84,12 @@
             transition: 0.2s;
         }
         .btn-update { background: var(--secondary-color); color: white; }
-        .btn-update:active { background: var(--primary-color); }
+        .btn-update:active { transform: scale(0.98); }
 
         /* Modal */
         .modal-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); z-index: 1000;
+            background: rgba(0,0,0,0.7); z-index: 2000;
             display: none; justify-content: center; align-items: center; padding: 20px;
         }
 
@@ -113,28 +104,48 @@
         .btn-confirm { background: var(--primary-color); color: white; margin-top: 20px; }
 
         /* Update Form */
-        .update-form { display: none; background: white; padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px solid #EEE; }
-        .update-form label { font-size: 11px; font-weight: 700; display: block; margin-top: 10px; color: #888; text-transform: uppercase; }
+        .update-form { display: none; background: #F8F9FA; padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px solid #EEE; }
+        .update-form label { font-size: 10px; font-weight: 700; display: block; margin-top: 10px; color: #888; text-transform: uppercase; }
         .update-form input, .update-form textarea, .update-form select { 
-            width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #EEE; border-radius: 8px; font-size: 13px;
+            width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #DDD; border-radius: 8px; font-size: 13px;
         }
 
-        /* Bottom Navigation */
+        /* FLOATING NAVIGATOR (Disamakan dengan Dashboard Masyarakat) */
+        .bottom-nav-container {
+            position: absolute;
+            bottom: 45px;
+            left: 0;
+            width: 100%;
+            padding: 0 10px;
+            z-index: 1000;
+        }
+
         .bottom-nav {
-            position: absolute; bottom: 0; width: 100%;
-            background: white; padding: 12px 20px;
-            display: flex; justify-content: space-between;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
-            border-top: 1px solid #EEE;
-            z-index: 100;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 5px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .nav-item {
-            display: flex; flex-direction: column; align-items: center;
-            color: #AAA; text-decoration: none; font-size: 10px; font-weight: 600; gap: 4px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #AAA;
+            text-decoration: none;
+            gap: 4px;
+            transition: all 0.2s ease;
         }
 
+        .nav-item i { width: 20px; height: 20px; }
+        .nav-item span { font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--secondary-color); }
+        .nav-item:active { transform: scale(0.9); }
     </style>
 </head>
 <body>
@@ -177,8 +188,8 @@
                 </div>
                 <div class="task-body">
                     <h4>Jl. Raden Intan (Depan Toko Fajar)</h4>
-                    <p><i data-lucide="map-pin" size="14"></i> Tanjung Karang Pusat</p>
-                    <p style="margin-top:5px;"><i data-lucide="info" size="14"></i> Sampah menumpuk di trotoar</p>
+                    <p><i data-lucide="map-pin"></i> Tanjung Karang Pusat</p>
+                    <p><i data-lucide="info"></i> Sampah menumpuk di trotoar</p>
                 </div>
                 
                 <button class="btn-action btn-update" onclick="toggleUpdate('form1')">Update Status</button>
@@ -193,7 +204,7 @@
                     <label>Foto Bukti</label>
                     <input type="file" accept="image/*">
                     <label>Catatan Lapangan</label>
-                    <textarea rows="2" placeholder="Tuliskan kendala atau info tambahan..."></textarea>
+                    <textarea rows="2" placeholder="Tuliskan kendala..."></textarea>
                     <button class="btn-action btn-confirm" onclick="saveUpdate()">Kirim Laporan Kerja</button>
                 </div>
             </div>
@@ -205,35 +216,37 @@
                 </div>
                 <div class="task-body">
                     <h4>Pasar Bambu Kuning</h4>
-                    <p><i data-lucide="map-pin" size="14"></i> Area Parkir Belakang</p>
+                    <p><i data-lucide="map-pin"></i> Area Parkir Belakang</p>
                 </div>
             </div>
         </div>
 
-        <nav class="bottom-nav">
-            <a href="dashboardpetugas.html" class="nav-item active">
-                <i data-lucide="layout-dashboard" size="20"></i>
-                <span>Tugas</span>
-            </a>
-            <a href="rute.html" class="nav-item">
-                <i data-lucide="map" size="20"></i>
-                <span>Rute Peta</span>
-            </a>
-            <a href="selesaipetugas.html" class="nav-item">
-                <i data-lucide="history" size="20"></i>
-                <span>Selesai</span>
-            </a>
-            <a href="profilepetugas.html" class="nav-item">
-                <i data-lucide="user-circle" size="20"></i>
-                <span>Profil</span>
-            </a>
-        </nav>
+        <div class="bottom-nav-container">
+            <nav class="bottom-nav">
+                <a href="dashboardpetugas.html" class="nav-item active">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Tugas</span>
+                </a>
+                <a href="rute.html" class="nav-item">
+                    <i data-lucide="map"></i>
+                    <span>Rute Peta</span>
+                </a>
+                <a href="selesaipetugas.html" class="nav-item">
+                    <i data-lucide="history"></i>
+                    <span>Selesai</span>
+                </a>
+                <a href="profilepetugas.html" class="nav-item">
+                    <i data-lucide="user-circle"></i>
+                    <span>Profil</span>
+                </a>
+            </nav>
+        </div>
     </div>
 
     <script>
         lucide.createIcons();
 
-        // Simulasi Pop-up muncul otomatis
+        // Simulasi Notifikasi
         setTimeout(() => {
             const modal = document.getElementById('taskModal');
             modal.style.display = 'flex';
@@ -245,8 +258,6 @@
 
         function toggleUpdate(id) {
             const form = document.getElementById(id);
-            const allForms = document.querySelectorAll('.update-form');
-            allForms.forEach(f => { if(f.id !== id) f.style.display = 'none'; });
             form.style.display = form.style.display === 'block' ? 'none' : 'block';
         }
 
