@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Dashboard Masyarakat - Tapis Bersih</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,40 +19,42 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: #CCC;
             display: flex;
             justify-content: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .mobile-frame {
             width: 100%;
             max-width: 414px;
-            height: 100vh;
+            height: 100%;
             background: var(--bg-light);
             display: flex;
             flex-direction: column;
             position: relative;
-            overflow: hidden;
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
         }
 
         /* Top Header */
         .header {
             background: var(--primary-color);
-            padding: 20px 20px 60px;
+            padding: 20px 20px 50px;
             border-radius: 0 0 30px 30px;
-            color: rgb(255, 255, 255);
-            flex-shrink: 0; /* Mencegah header mengecil */
+            color: white;
+            flex-shrink: 0;
         }
 
         .brand-section {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
@@ -60,37 +62,16 @@
         .instansi-logo {
             width: 35px;
             height: 35px;
-            object-fit: contain;
             border-radius: 8px;
         }
 
-        .brand-text h2 {
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .brand-text p {
-            font-size: 9px;
-            opacity: 0.7;
-            text-transform: uppercase;
-        }
+        .brand-text h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; }
+        .brand-text p { font-size: 9px; opacity: 0.7; }
 
         .user-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .user-info h3 {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .user-info p {
-            font-size: 12px;
-            opacity: 0.8;
         }
 
         .notification-btn {
@@ -103,16 +84,14 @@
         .content {
             flex: 1;
             padding: 0 20px;
-            margin-top: -30px;
+            margin-top: -25px;
             overflow-y: auto;
-            /* Padding bottom ekstra agar konten terakhir tidak tertutup nav */
-            padding-bottom: 100px; 
-            scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
+            /* Padding bottom diperbesar agar konten tidak tertutup nav yang melayang */
+            padding-bottom: 120px; 
+            scrollbar-width: none;
         }
 
-        .content::-webkit-scrollbar {
-            display: none; /* Sembunyikan scrollbar di Chrome/Safari */
-        }
+        .content::-webkit-scrollbar { display: none; }
 
         .main-card {
             background: white;
@@ -121,16 +100,13 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
             margin-bottom: 25px;
         }
 
         .stat-box {
             text-align: center;
-            padding: 10px;
             border-right: 1px solid #EEE;
         }
-
         .stat-box:last-child { border: none; }
         .stat-box h4 { font-size: 20px; color: var(--primary-color); }
         .stat-box p { font-size: 11px; color: #666; }
@@ -140,9 +116,6 @@
             font-weight: 700;
             margin-bottom: 15px;
             color: var(--text-dark);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .report-btn {
@@ -156,10 +129,7 @@
             text-decoration: none;
             color: var(--text-dark);
             border: 2px dashed var(--secondary-color);
-            transition: 0.2s;
         }
-
-        .report-btn:active { transform: scale(0.98); background: #f0fff4; }
 
         .icon-box {
             background: #E8F5E9;
@@ -177,55 +147,41 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
 
-        .news-info {
-            padding: 10px;
-            flex: 1;
-        }
-
-        .news-info h5 { font-size: 13px; margin-bottom: 5px; color: var(--text-dark); }
-        .news-info p { font-size: 11px; color: #888; }
-
-        /* Bottom Nav - UPDATED */
-        .bottom-nav {
+        /* UPDATE: Navigator Floating Style */
+        .bottom-nav-container {
             position: absolute;
-            bottom: 0;
+            bottom: 25px; /* Menaikkan navigator agar tidak mepet bawah */
             left: 0;
             width: 100%;
+            padding: 0 20px; /* Memberi jarak dari tepi kiri-kanan frame */
+            z-index: 999;
+        }
+
+        .bottom-nav {
             background: white;
-            /* Padding atas 12px, samping 10px, bawah 20px untuk area jempol */
-            padding: 12px 10px 20px; 
             display: flex;
-            justify-content: space-around; /* Lebih merata di mobile */
+            justify-content: space-around;
             align-items: center;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
-            border-radius: 25px 25px 0 0;
-            z-index: 100;
+            padding: 12px 5px;
+            border-radius: 20px; /* Membuat sudut membulat di semua sisi */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Shadow lebih tegas agar kontras */
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .nav-item {
-            flex: 1; /* Memberikan area klik yang luas */
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             color: #AAA;
             text-decoration: none;
             gap: 4px;
-            transition: 0.3s;
         }
 
-        .nav-item i {
-            width: 22px;
-            height: 22px;
-        }
+        .nav-item i { width: 20px; height: 20px; }
+        .nav-item span { font-size: 10px; font-weight: 600; }
+        .nav-item.active { color: var(--primary-color); }
 
-        .nav-item span {
-            font-size: 10px;
-            font-weight: 600;
-        }
-
-        .nav-item.active {
-            color: var(--primary-color);
-        }
     </style>
 </head>
 <body>
@@ -242,11 +198,11 @@
 
             <div class="user-info">
                 <div>
-                    <p>Selamat Pagi,</p>
-                    <h3>Ibu Olivia</h3>
+                    <p style="font-size: 12px; opacity: 0.8;">Selamat Pagi,</p>
+                    <h3 style="font-size: 18px; font-weight: 600;">Ibu Olivia</h3>
                 </div>
                 <div class="notification-btn">
-                    <i data-lucide="bell"></i>
+                    <i data-lucide="bell" style="color: white; width: 20px; height: 20px;"></i>
                 </div>
             </div>
         </div>
@@ -265,59 +221,58 @@
 
             <div class="section-title">Layanan Cepat</div>
             <a href="laporsampah.html" class="report-btn">
-                <div class="icon-box">
-                    <i data-lucide="camera"></i>
-                </div>
+                <div class="icon-box"><i data-lucide="camera"></i></div>
                 <div>
                     <h4 style="font-size: 14px;">Lapor Sampah</h4>
                     <p style="font-size: 11px; color: #666;">Klik untuk foto & lapor tumpukan sampah</p>
                 </div>
             </a>
 
-            <div class="section-title">
+            <div class="section-title" style="display: flex; justify-content: space-between;">
                 Berita & Edukasi
-                <a href="#" style="font-size: 12px; color: var(--secondary-color); text-decoration: none;">Lihat Semua</a>
+                <span style="font-size: 12px; color: var(--secondary-color);">Lihat Semua</span>
             </div>
 
             <div class="news-card">
                 <div style="width:80px; min-width:80px; height:80px; background: url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=100&q=80') center/cover;"></div>
-                <div class="news-info">
-                    <h5>Jadwal Pengangkutan Sampah Kecamatan Enggal</h5>
-                    <p>Mulai 1 Januari, armada akan datang pukul 07.00 WIB...</p>
+                <div style="padding: 10px; flex: 1;">
+                    <h5 style="font-size: 13px; margin-bottom: 5px;">Jadwal Pengangkutan Sampah</h5>
+                    <p style="font-size: 11px; color: #888;">Armada akan datang mulai pukul 07.00 WIB...</p>
                 </div>
             </div>
 
             <div class="news-card">
                 <div style="width:80px; min-width:80px; height:80px; background: url('https://images.unsplash.com/photo-1536939459926-301728717817?auto=format&fit=crop&w=100&q=80') center/cover;"></div>
-                <div class="news-info">
-                    <h5>Cara Memilah Sampah Rumah Tangga</h5>
-                    <p>Mari mulai memisahkan sampah organik dan anorganik...</p>
+                <div style="padding: 10px; flex: 1;">
+                    <h5 style="font-size: 13px; margin-bottom: 5px;">Cara Memilah Sampah</h5>
+                    <p style="font-size: 11px; color: #888;">Mari pisahkan sampah organik & anorganik...</p>
                 </div>
             </div>
         </div>
 
-        <nav class="bottom-nav">
-            <a href="dashboardmasyarakat.html" class="nav-item active">
-                <i data-lucide="home"></i>
-                <span>Beranda</span>
-            </a>
-            <a href="riwayat.html" class="nav-item">
-                <i data-lucide="clipboard-list"></i>
-                <span>Riwayat</span>
-            </a>
-            <a href="peta.html" class="nav-item">
-                <i data-lucide="map-pin"></i>
-                <span>Peta</span>
-            </a>
-            <a href="profil.html" class="nav-item">
-                <i data-lucide="user"></i>
-                <span>Profil</span>
-            </a>
-        </nav>
+        <div class="bottom-nav-container">
+            <nav class="bottom-nav">
+                <a href="dashboardmasyarakat.html" class="nav-item active">
+                    <i data-lucide="home"></i>
+                    <span>Beranda</span>
+                </a>
+                <a href="riwayat.html" class="nav-item">
+                    <i data-lucide="clipboard-list"></i>
+                    <span>Riwayat</span>
+                </a>
+                <a href="peta.html" class="nav-item">
+                    <i data-lucide="map-pin"></i>
+                    <span>Peta</span>
+                </a>
+                <a href="profil.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span>Profil</span>
+                </a>
+            </nav>
+        </div>
     </div>
 
     <script>
-        // Inisialisasi ikon Lucide
         lucide.createIcons();
     </script>
 </body>
