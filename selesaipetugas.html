@@ -24,22 +24,24 @@
         body { 
             background-color: #CCC; 
             display: flex; justify-content: center; 
-            height: 100vh; overflow: hidden;
+            height: 100vh; overflow: hidden; /* Mencegah seluruh body scroll */
         }
 
         .mobile-frame {
             width: 100%; max-width: 414px; height: 100%;
             background: var(--bg-light); position: relative; 
-            display: flex; flex-direction: column; overflow: hidden;
+            display: flex; flex-direction: column; /* Menggunakan Flexbox */
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
         }
 
         /* Summary Header */
         .summary-header {
-            background: var(--primary-color); padding: 30px 20px 50px;
+            background: var(--primary-color); 
+            padding: 30px 20px 45px; /* Padding bawah disesuaikan */
             color: white; border-radius: 0 0 30px 30px;
             display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-            flex-shrink: 0;
+            flex-shrink: 0; /* Header tidak boleh mengecil */
+            z-index: 5;
         }
 
         .summary-stat {
@@ -53,10 +55,14 @@
 
         /* Content List */
         .main-content { 
-            flex: 1; padding: 0 20px; overflow-y: auto; 
-            margin-top: -20px;
-            padding-bottom: 130px; /* Ruang ekstra untuk nav melayang */
+            flex: 1; /* Mengambil sisa ruang yang tersedia */
+            padding: 0 20px; 
+            overflow-y: auto; /* Hanya area ini yang bisa scroll */
+            margin-top: -20px; /* Menarik konten ke atas sedikit agar menyatu dengan header */
+            padding-bottom: 110px; /* Ruang agar kartu terakhir tidak tertutup navigator */
             scrollbar-width: none;
+            position: relative;
+            z-index: 1;
         }
         .main-content::-webkit-scrollbar { display: none; }
 
@@ -106,11 +112,12 @@
         /* FLOATING NAVIGATOR (Identik dengan Dashboard Petugas) */
         .bottom-nav-container {
             position: absolute;
-            bottom: 45px;
+            bottom: 25px; /* Jarak dari bawah frame */
             left: 0;
             width: 100%;
-            padding: 0 10px;
-            z-index: 1000;
+            padding: 0 15px;
+            z-index: 100;
+            pointer-events: none; /* Agar area transparan di sekitar nav tidak menghalangi klik konten */
         }
 
         .bottom-nav {
@@ -120,8 +127,9 @@
             align-items: center;
             padding: 12px 5px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             border: 1px solid rgba(0,0,0,0.05);
+            pointer-events: auto; /* Mengembalikan klik pada navigator */
         }
 
         .nav-item {
