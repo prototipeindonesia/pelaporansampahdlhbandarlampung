@@ -3,114 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tugas Selesai - Tapis Bersih</title>
+    <title>Riwayat Laporan - Tapis Bersih</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary-color: #1B4332;
-            --secondary-color: #2D6A4F;
-            --bg-light: #F4F7F6;
-            --success-color: #2D6A4F;
-            --accent-color: #FFB100;
+            --primary-color: #2D6A4F;
+            --secondary-color: #52B788;
+            --warning-color: #FFB100;
+            --danger-color: #E74C3C;
+            --bg-light: #F8F9FA;
+            --text-dark: #1B4332;
         }
 
-        * { 
-            margin: 0; padding: 0; box-sizing: border-box; 
-            font-family: 'Inter', sans-serif; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
-        body { 
-            background-color: #CCC; 
-            display: flex; justify-content: center; 
-            height: 100vh; overflow: hidden;
+        body {
+            background-color: #CCC; /* Menyamakan background luar frame */
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .mobile-frame {
-            width: 100%; max-width: 414px; height: 100%;
-            background: var(--bg-light); position: relative; 
-            display: flex; flex-direction: column; overflow: hidden;
+            width: 100%;
+            max-width: 414px;
+            height: 100%;
+            background: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            position: relative;
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
         }
 
-        /* Summary Header */
-        .summary-header {
-            background: var(--primary-color); padding: 30px 20px 50px;
-            color: white; border-radius: 0 0 30px 30px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        /* Top Header */
+        .header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #EEE;
             flex-shrink: 0;
         }
 
-        .summary-stat {
-            background: rgba(255,255,255,0.1); padding: 15px;
-            border-radius: 15px; text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
+        .btn-back {
+            background: #F0F0F0;
+            border: none;
+            padding: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .summary-stat h4 { font-size: 24px; color: var(--accent-color); font-weight: 700; }
-        .summary-stat p { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+        .header h2 {
+            font-size: 18px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        /* Filter Tabs */
+        .tabs {
+            display: flex;
+            padding: 15px 20px;
+            gap: 10px;
+            overflow-x: auto;
+            background: white;
+            scrollbar-width: none;
+            flex-shrink: 0;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab {
+            padding: 8px 16px;
+            background: #F0F0F0;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
 
         /* Content List */
-        .main-content { 
-            flex: 1; padding: 0 20px; overflow-y: auto; 
-            margin-top: -20px;
-            padding-bottom: 130px; /* Ruang ekstra untuk nav melayang */
+        .history-list {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            padding-bottom: 120px; /* Ruang agar tidak tertutup nav melayang */
             scrollbar-width: none;
         }
-        .main-content::-webkit-scrollbar { display: none; }
-
-        .section-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .section-title { font-size: 16px; font-weight: 700; color: var(--primary-color); }
+        .history-list::-webkit-scrollbar { display: none; }
 
         .history-card {
-            background: white; border-radius: 18px; padding: 15px;
-            margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            transition: 0.2s;
+            background: white;
+            border-radius: 18px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            gap: 12px;
+            border: 1px solid #F0F0F0;
+            cursor: pointer;
         }
 
-        .history-card:active { transform: scale(0.98); }
-
-        .history-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #F5F5F5;
+        .history-img {
+            width: 75px;
+            height: 75px;
+            background: #EEE;
+            border-radius: 12px;
+            object-fit: cover;
         }
 
-        .date-tag { font-size: 11px; color: #888; font-weight: 500; }
-        .success-badge { 
-            font-size: 10px; font-weight: 700; color: var(--success-color); 
-            background: #E8F5E9; padding: 4px 8px; border-radius: 6px;
+        .history-info {
+            flex: 1;
         }
 
-        .history-body { display: flex; gap: 12px; }
-        .proof-img { 
-            width: 75px; height: 75px; border-radius: 12px; 
-            background: #EEE; object-fit: cover;
+        .history-info h4 {
+            font-size: 14px;
+            color: var(--text-dark);
+            margin: 6px 0;
+            line-height: 1.4;
         }
 
-        .info-text { flex: 1; }
-        .info-text h4 { font-size: 14px; color: var(--primary-color); margin-bottom: 4px; font-weight: 700; }
-        .info-text p { font-size: 12px; color: #666; display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
+        .history-info p {
+            font-size: 11px;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
 
-        .point-badge {
+        /* Status Badges */
+        .status {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
             display: inline-block;
-            font-size: 11px; color: var(--success-color); 
-            font-weight: 700; background: #E8F5E9;
-            padding: 2px 8px; border-radius: 20px;
         }
 
-        /* FLOATING NAVIGATOR (Identik dengan Dashboard Petugas) */
+        .status-waiting { background: #FFF4E5; color: var(--warning-color); }
+        .status-process { background: #E8F5E9; color: var(--secondary-color); }
+        .status-done { background: #E3F2FD; color: #2196F3; }
+
+        /* Floating Navigator Layout (SAMA DENGAN DASHBOARD) */
         .bottom-nav-container {
             position: absolute;
             bottom: 45px;
             left: 0;
             width: 100%;
             padding: 0 10px;
-            z-index: 1000;
+            z-index: 999;
         }
 
         .bottom-nav {
@@ -137,7 +199,8 @@
 
         .nav-item i { width: 20px; height: 20px; }
         .nav-item span { font-size: 10px; font-weight: 600; }
-        .nav-item.active { color: var(--secondary-color); }
+        .nav-item.active { color: var(--primary-color); }
+        
         .nav-item:active { transform: scale(0.9); }
 
     </style>
@@ -145,87 +208,71 @@
 <body>
 
     <div class="mobile-frame">
-        <div class="summary-header">
-            <div class="summary-stat">
-                <h4>24</h4>
-                <p>Tugas Selesai</p>
-            </div>
-            <div class="summary-stat">
-                <h4>4.8</h4>
-                <p>Rating Performa</p>
-            </div>
+        <div class="header">
+            <button class="btn-back" onclick="window.location.href='dashboardmasyarakat.html'">
+                <i data-lucide="arrow-left"></i>
+            </button>
+            <h2>Riwayat Laporan</h2>
         </div>
 
-        <div class="main-content">
-            <div class="section-header">
-                <h3 class="section-title">Riwayat Penanganan</h3>
-                <i data-lucide="filter" size="18" style="color: #666;"></i>
+        <div class="tabs">
+            <div class="tab active">Semua</div>
+            <div class="tab">Menunggu</div>
+            <div class="tab">Proses</div>
+            <div class="tab">Selesai</div>
+        </div>
+
+        <div class="history-list">
+            <div class="history-card" onclick="window.location.href='detail_laporan.html'">
+                <img src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&w=150&q=80" class="history-img" alt="Sampah">
+                <div class="history-info">
+                    <span class="status status-process">Sedang Diproses</span>
+                    <h4>Tumpukan Sampah di Jl. Raden Intan</h4>
+                    <p><i data-lucide="calendar"></i> 10 Jan 2026</p>
+                    <p><i data-lucide="map-pin"></i> Tanjung Karang Pusat</p>
+                </div>
+                <i data-lucide="chevron-right" style="align-self: center; color: #CCC; width: 18px;"></i>
             </div>
 
             <div class="history-card">
-                <div class="history-header">
-                    <span class="date-tag">Hari ini, 10 Jan 2026 - 09:15</span>
-                    <span class="success-badge">BERHASIL</span>
+                <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=150&q=80" class="history-img" alt="Sampah">
+                <div class="history-info">
+                    <span class="status status-done">Selesai Dikemas</span>
+                    <h4>Sampah Liar dekat Pasar Bambu Kuning</h4>
+                    <p><i data-lucide="calendar"></i> 08 Jan 2026</p>
+                    <p><i data-lucide="map-pin"></i> Enggal</p>
                 </div>
-                <div class="history-body">
-                    <img src="https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=150&q=80" class="proof-img" alt="Bukti Selesai">
-                    <div class="info-text">
-                        <h4>Jl. Raden Intan</h4>
-                        <p><i data-lucide="map-pin" style="width:12px"></i> Tanjung Karang Pusat</p>
-                        <span class="point-badge">+ 50 Poin Kerja</span>
-                    </div>
-                </div>
+                <i data-lucide="chevron-right" style="align-self: center; color: #CCC; width: 18px;"></i>
             </div>
 
             <div class="history-card">
-                <div class="history-header">
-                    <span class="date-tag">09 Jan 2026 - 15:30</span>
-                    <span class="success-badge">BERHASIL</span>
+                <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=150&q=80" class="history-img" alt="Sampah">
+                <div class="history-info">
+                    <span class="status status-waiting">Menunggu Verifikasi</span>
+                    <h4>Limbah Rumah Tangga Menumpuk</h4>
+                    <p><i data-lucide="calendar"></i> 07 Jan 2026</p>
+                    <p><i data-lucide="map-pin"></i> Kedaton</p>
                 </div>
-                <div class="history-body">
-                    <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=150&q=80" class="proof-img" alt="Bukti Selesai">
-                    <div class="info-text">
-                        <h4>Pasar Bambu Kuning</h4>
-                        <p><i data-lucide="map-pin" style="width:12px"></i> Area Parkir Belakang</p>
-                        <span class="point-badge">+ 30 Poin Kerja</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="history-card">
-                <div class="history-header">
-                    <span class="date-tag">08 Jan 2026 - 11:20</span>
-                    <span class="success-badge">BERHASIL</span>
-                </div>
-                <div class="history-body">
-                    <div style="width: 75px; height: 75px; background: #F0F0F0; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                        <i data-lucide="image" style="color: #AAA; width: 24px;"></i>
-                    </div>
-                    <div class="info-text">
-                        <h4>Jl. Sultan Agung</h4>
-                        <p><i data-lucide="map-pin" style="width:12px"></i> Kedaton</p>
-                        <span class="point-badge">+ 50 Poin Kerja</span>
-                    </div>
-                </div>
+                <i data-lucide="chevron-right" style="align-self: center; color: #CCC; width: 18px;"></i>
             </div>
         </div>
 
         <div class="bottom-nav-container">
             <nav class="bottom-nav">
-                <a href="dashboardpetugas.html" class="nav-item">
-                    <i data-lucide="layout-dashboard"></i>
-                    <span>Tugas</span>
+                <a href="dashboardmasyarakat.html" class="nav-item">
+                    <i data-lucide="home"></i>
+                    <span>Beranda</span>
                 </a>
-                <a href="rute.html" class="nav-item">
-                    <i data-lucide="map"></i>
-                    <span>Rute Peta</span>
+                <a href="riwayat.html" class="nav-item active">
+                    <i data-lucide="clipboard-list"></i>
+                    <span>Riwayat</span>
                 </a>
-                <a href="selesaipetugas.html" class="nav-item active">
-                    <i data-lucide="history"></i>
-                    <span>Selesai</span>
+                <a href="peta.html" class="nav-item">
+                    <i data-lucide="map-pin"></i>
+                    <span>Peta</span>
                 </a>
-                <a href="profilepetugas.html" class="nav-item">
-                    <i data-lucide="user-circle"></i>
+                <a href="profil.html" class="nav-item">
+                    <i data-lucide="user"></i>
                     <span>Profil</span>
                 </a>
             </nav>
