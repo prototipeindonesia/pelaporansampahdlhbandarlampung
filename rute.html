@@ -46,7 +46,7 @@
             border-radius: 10px; cursor: pointer; display: flex;
         }
 
-        /* Simulated Map Area */
+        /* Map Area */
         .map-area {
             flex: 1;
             background-image: url('https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/105.2663,-5.3971,14,0/414x896?access_token=p.demo');
@@ -66,13 +66,13 @@
             100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(231, 76, 60, 0)); }
         }
 
-        /* Navigation Sheet (Bottom Card) - Disesuaikan agar tidak tertutup nav */
+        /* Navigation Sheet (Bottom Card) */
         .nav-sheet {
             background: white; padding: 20px;
             border-radius: 25px 25px 0 0;
             box-shadow: 0 -10px 20px rgba(0,0,0,0.1);
             z-index: 20;
-            margin-bottom: 110px; /* Memberi ruang untuk navigator melayang */
+            margin-bottom: 115px; /* JARAK PRESISI: Memberi ruang pas untuk navigator melayang */
         }
 
         .info-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
@@ -89,14 +89,16 @@
         .btn-nav {
             padding: 12px; border-radius: 10px; border: none; font-weight: 700; font-size: 13px;
             display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+            transition: 0.2s;
         }
         .btn-google { background: #4285F4; color: white; }
         .btn-arrived { background: var(--secondary-color); color: white; }
+        .btn-nav:active { transform: scale(0.95); }
 
-        /* FLOATING NAVIGATOR (Identik dengan Dashboard Petugas) */
+        /* FLOATING NAVIGATOR (Disamakan 100% dengan Dashboard & Selesai) */
         .bottom-nav-container {
             position: absolute;
-            bottom: 45px; /* Sedikit lebih rendah untuk estetika peta */
+            bottom: 45px; /* POSISI PAS: Sama dengan halaman lainnya */
             left: 0;
             width: 100%;
             padding: 0 10px;
@@ -122,11 +124,13 @@
             color: #AAA;
             text-decoration: none;
             gap: 4px;
+            transition: 0.2s;
         }
 
         .nav-item i { width: 20px; height: 20px; }
         .nav-item span { font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--secondary-color); }
+        .nav-item:active { transform: scale(0.9); }
     </style>
 </head>
 <body>
@@ -134,7 +138,7 @@
     <div class="mobile-frame">
         <div class="top-bar">
             <button class="back-btn" onclick="window.history.back()">
-                <i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i>
+                <i data-lucide="chevron-left"></i>
             </button>
             <div>
                 <p style="font-size: 10px; color: #888; text-transform: uppercase; font-weight: 700;">Menuju Lokasi:</p>
@@ -202,4 +206,3 @@
     </script>
 </body>
 </html>
-
