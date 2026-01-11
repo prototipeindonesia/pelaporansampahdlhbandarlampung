@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Riwayat Laporan - Tapis Bersih</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -21,22 +21,26 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-light);
+            background-color: #CCC; /* Menyamakan background luar frame */
             display: flex;
             justify-content: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .mobile-frame {
             width: 100%;
             max-width: 414px;
-            height: 100vh;
+            height: 100%;
             background: var(--bg-light);
             display: flex;
             flex-direction: column;
             position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
         }
 
         /* Top Header */
@@ -47,6 +51,7 @@
             align-items: center;
             gap: 15px;
             border-bottom: 1px solid #EEE;
+            flex-shrink: 0;
         }
 
         .btn-back {
@@ -56,11 +61,15 @@
             border-radius: 10px;
             cursor: pointer;
             color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .header h2 {
             font-size: 18px;
             color: var(--text-dark);
+            font-weight: 700;
         }
 
         /* Filter Tabs */
@@ -70,7 +79,10 @@
             gap: 10px;
             overflow-x: auto;
             background: white;
+            scrollbar-width: none;
+            flex-shrink: 0;
         }
+        .tabs::-webkit-scrollbar { display: none; }
 
         .tab {
             padding: 8px 16px;
@@ -81,6 +93,7 @@
             color: #888;
             white-space: nowrap;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .tab.active {
@@ -93,8 +106,10 @@
             flex: 1;
             padding: 20px;
             overflow-y: auto;
-            padding-bottom: 80px;
+            padding-bottom: 120px; /* Ruang agar tidak tertutup nav melayang */
+            scrollbar-width: none;
         }
+        .history-list::-webkit-scrollbar { display: none; }
 
         .history-card {
             background: white;
@@ -105,11 +120,12 @@
             display: flex;
             gap: 12px;
             border: 1px solid #F0F0F0;
+            cursor: pointer;
         }
 
         .history-img {
-            width: 70px;
-            height: 70px;
+            width: 75px;
+            height: 75px;
             background: #EEE;
             border-radius: 12px;
             object-fit: cover;
@@ -122,7 +138,8 @@
         .history-info h4 {
             font-size: 14px;
             color: var(--text-dark);
-            margin-bottom: 4px;
+            margin: 6px 0;
+            line-height: 1.4;
         }
 
         .history-info p {
@@ -131,15 +148,15 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         /* Status Badges */
         .status {
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 700;
             padding: 4px 10px;
-            border-radius: 8px;
+            border-radius: 6px;
             text-transform: uppercase;
             display: inline-block;
         }
@@ -148,32 +165,44 @@
         .status-process { background: #E8F5E9; color: var(--secondary-color); }
         .status-done { background: #E3F2FD; color: #2196F3; }
 
-        /* Bottom Nav (Same as Dashboard) */
-        .bottom-nav {
+        /* Floating Navigator Layout (SAMA DENGAN DASHBOARD) */
+        .bottom-nav-container {
             position: absolute;
             bottom: 45px;
             left: 0;
             width: 100%;
-            background: white;
             padding: 0 10px;
             z-index: 999;
+        }
+
+        .bottom-nav {
+            background: white;
             display: flex;
-            justify-content: space-between;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
-            border-radius: 25px 25px 0 0;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 5px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .nav-item {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             color: #AAA;
             text-decoration: none;
-            font-size: 10px;
-            font-weight: 600;
+            gap: 4px;
+            transition: all 0.2s ease;
         }
 
+        .nav-item i { width: 20px; height: 20px; }
+        .nav-item span { font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--primary-color); }
+        
+        .nav-item:active { transform: scale(0.9); }
+
     </style>
 </head>
 <body>
@@ -181,7 +210,7 @@
     <div class="mobile-frame">
         <div class="header">
             <button class="btn-back" onclick="window.location.href='dashboardmasyarakat.html'">
-                <i data-lucide="arrow-left" size="20"></i>
+                <i data-lucide="arrow-left"></i>
             </button>
             <h2>Riwayat Laporan</h2>
         </div>
@@ -194,59 +223,59 @@
         </div>
 
         <div class="history-list">
-            
             <div class="history-card" onclick="window.location.href='detail_laporan.html'">
-                <img src="tumpukansampah1.jpeg" class="history-img" alt="Sampah">
+                <img src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&w=150&q=80" class="history-img" alt="Sampah">
                 <div class="history-info">
                     <span class="status status-process">Sedang Diproses</span>
                     <h4>Tumpukan Sampah di Jl. Raden Intan</h4>
-                    <p><i data-lucide="calendar" size="12"></i> 10 Jan 2026</p>
-                    <p><i data-lucide="map-pin" size="12"></i> Tanjung Karang Pusat</p>
+                    <p><i data-lucide="calendar"></i> 10 Jan 2026</p>
+                    <p><i data-lucide="map-pin"></i> Tanjung Karang Pusat</p>
                 </div>
-                <i data-lucide="chevron-right" size="18" style="align-self: center; color: #CCC;"></i>
+                <i data-lucide="chevron-right" style="align-self: center; color: #CCC; width: 18px;"></i>
             </div>
 
             <div class="history-card">
-                <img src="tumpukansampah2.jpeg" class="history-img" alt="Sampah">
+                <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=150&q=80" class="history-img" alt="Sampah">
                 <div class="history-info">
                     <span class="status status-done">Selesai Dikemas</span>
                     <h4>Sampah Liar dekat Pasar Bambu Kuning</h4>
-                    <p><i data-lucide="calendar" size="12"></i> 08 Jan 2026</p>
-                    <p><i data-lucide="map-pin" size="12"></i> Enggal</p>
+                    <p><i data-lucide="calendar"></i> 08 Jan 2026</p>
+                    <p><i data-lucide="map-pin"></i> Enggal</p>
                 </div>
-                <i data-lucide="chevron-right" size="18" style="align-self: center; color: #CCC;"></i>
+                <i data-lucide="chevron-right" style="align-self: center; color: #CCC; width: 18px;"></i>
             </div>
 
             <div class="history-card">
-                <img src="tumpukansampah3.jpeg" class="history-img" alt="Sampah">
+                <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=150&q=80" class="history-img" alt="Sampah">
                 <div class="history-info">
                     <span class="status status-waiting">Menunggu Verifikasi</span>
                     <h4>Limbah Rumah Tangga Menumpuk</h4>
-                    <p><i data-lucide="calendar" size="12"></i> 07 Jan 2026</p>
-                    <p><i data-lucide="map-pin" size="12"></i> Kedaton</p>
+                    <p><i data-lucide="calendar"></i> 07 Jan 2026</p>
+                    <p><i data-lucide="map-pin"></i> Kedaton</p>
                 </div>
-                <i data-lucide="chevron-right" size="18" style="align-self: center; color: #CCC;"></i>
+                <i data-lucide="chevron-right" style="align-self: center; color: #CCC; width: 18px;"></i>
             </div>
-
         </div>
 
-        <div class="bottom-nav">
-            <a href="dashboardmasyarakat.html" class="nav-item">
-                <i data-lucide="home"></i>
-                <span>Beranda</span>
-            </a>
-            <a href="riwayat.html" class="nav-item active">
-                <i data-lucide="clipboard-list"></i>
-                <span>Riwayat</span>
-            </a>
-            <a href="peta.html" class="nav-item">
-                <i data-lucide="map-pin"></i>
-                <span>Peta</span>
-            </a>
-            <a href="profil.html" class="nav-item">
-                <i data-lucide="user"></i>
-                <span>Profil</span>
-            </a>
+        <div class="bottom-nav-container">
+            <nav class="bottom-nav">
+                <a href="dashboardmasyarakat.html" class="nav-item">
+                    <i data-lucide="home"></i>
+                    <span>Beranda</span>
+                </a>
+                <a href="riwayat.html" class="nav-item active">
+                    <i data-lucide="clipboard-list"></i>
+                    <span>Riwayat</span>
+                </a>
+                <a href="peta.html" class="nav-item">
+                    <i data-lucide="map-pin"></i>
+                    <span>Peta</span>
+                </a>
+                <a href="profil.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span>Profil</span>
+                </a>
+            </nav>
         </div>
     </div>
 
@@ -255,4 +284,3 @@
     </script>
 </body>
 </html>
-
