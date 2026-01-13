@@ -46,12 +46,13 @@
             border-radius: 10px; cursor: pointer; display: flex;
         }
 
-        /* Map Area */
+        /* --- UPDATE: Map Area menggunakan rute.png --- */
         .map-area {
             flex: 1;
-            background-image: url('https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/105.2663,-5.3971,14,0/414x896?access_token=p.demo');
+            background-image: url('rute.png'); /* Memanggil file lokal rute.png */
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             position: relative;
         }
 
@@ -72,7 +73,7 @@
             border-radius: 25px 25px 0 0;
             box-shadow: 0 -10px 20px rgba(0,0,0,0.1);
             z-index: 20;
-            margin-bottom: 115px; /* JARAK PRESISI: Memberi ruang pas untuk navigator melayang */
+            margin-bottom: 115px; 
         }
 
         .info-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
@@ -95,10 +96,10 @@
         .btn-arrived { background: var(--secondary-color); color: white; }
         .btn-nav:active { transform: scale(0.95); }
 
-        /* FLOATING NAVIGATOR (Disamakan 100% dengan Dashboard & Selesai) */
+        /* FLOATING NAVIGATOR */
         .bottom-nav-container {
             position: absolute;
-            bottom: 45px; /* POSISI PAS: Sama dengan halaman lainnya */
+            bottom: 45px; 
             left: 0;
             width: 100%;
             padding: 0 10px;
