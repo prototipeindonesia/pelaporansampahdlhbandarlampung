@@ -68,10 +68,9 @@
             font-size: 14px;
         }
 
-        /* Update Bagian Map Background */
+        /* Map Background */
         .map-bg {
             flex: 1;
-            /* Menggunakan file lokal peta.png */
             background-image: url('peta.png'); 
             background-size: cover;
             background-position: center;
@@ -84,8 +83,31 @@
         /* Custom Markers */
         .marker {
             position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             cursor: pointer;
+            z-index: 5;
+        }
+
+        /* Animasi pada Pin saja */
+        .marker i {
             animation: bounce 2s infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        /* Label Lokasi */
+        .location-label {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-top: -5px; /* Narik label ke atas sedikit agar menyatu dengan pin */
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         @keyframes bounce {
@@ -93,7 +115,7 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* Info Card at Bottom */
+        /* Info Card */
         .info-card {
             position: absolute;
             bottom: 125px; 
@@ -131,7 +153,7 @@
             cursor: pointer;
         }
 
-        /* FLOATING NAVIGATOR */
+        /* Floating Nav */
         .bottom-nav-container {
             position: absolute;
             bottom: 45px;
@@ -184,12 +206,17 @@
         <div class="map-bg">
             <div class="marker" style="top: 35%; left: 45%;">
                 <i data-lucide="map-pin" fill="var(--primary-color)" color="white" size="32"></i>
+                <span class="location-label">Jl. Kartini</span>
             </div>
+            
             <div class="marker" style="top: 50%; left: 25%;">
                 <i data-lucide="map-pin" fill="#E74C3C" color="white" size="32"></i>
+                <span class="location-label">Pasar Baru</span>
             </div>
+            
             <div class="marker" style="top: 20%; left: 70%;">
                 <i data-lucide="map-pin" fill="var(--secondary-color)" color="white" size="32"></i>
+                <span class="location-label">Taman Kota</span>
             </div>
         </div>
 
